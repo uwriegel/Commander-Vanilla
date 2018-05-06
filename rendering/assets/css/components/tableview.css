@@ -1,0 +1,41 @@
+﻿.tableView {
+    box-sizing: border-box;
+    width: 100%;
+    outline-width: 0px;
+    overflow-y: hidden;
+    table-layout: fixed;
+    border-spacing: 0px;
+    position: absolute;
+}
+
+.tableView tr {
+    transition: background-color 0.3s;
+}
+
+.tableView tr:hover {
+    background-color: var(--commander-item-hover);
+}
+
+.tableView td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.tableViewTable {
+    box-sizing: border-box;
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0px;
+}
+.highlight {
+    background-color: lightgreen;
+}
+
+.tableView tr:focus {
+    outline-color: red;
+    outline-width: 1px;
+    outline-style: solid;
+    outline-offset: -1px;
+}

@@ -1,0 +1,33 @@
+﻿#vgrid {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#grid {
+    display: flex;
+    flex-grow: 2;
+}
+
+#grip {
+    background-color: lightgray;
+    transition: background-color 0.4s;
+    width: 6px;
+    cursor: ew-resize;
+}
+
+#vgrip {
+    background-color: lightgray;
+    transition: background-color 0.4s;
+    height: 6px;
+    width: 100%;
+    cursor: ns-resize;
+}
+
+#grip:hover, #vgrip:hover {
+    background-color: darkgray;
+}
+
+#grip:active, #vgrip:active {
+    background-color: #6b6969;
+    

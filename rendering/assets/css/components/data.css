@@ -1,0 +1,34 @@
+﻿.it-iconName {
+    display: flex;
+}
+
+.it-nameValue {
+    overflow: hidden;
+    margin-top: 1px;
+    margin-left: 3px;
+    text-overflow: ellipsis;
+}
+
+.it-image {
+    height: 16px;
+    width: 16px;
+}
+
+.it-size {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.it-hidden {
+    opacity: 0.45;
+}
+
+.exif {
+    color: darkblue;
+}
+
+.it-selected {
+    background-color: var(--selected-bg-color);
+    color: var(--selected-color);
+}
+
