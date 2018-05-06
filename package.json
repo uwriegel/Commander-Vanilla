@@ -1,0 +1,27 @@
+{
+  "name": "commander",
+  "version": "1.0.0",
+  "description": "A Norton like Commander based on Electron and typescript",
+  "main": "main-scripts/main.js",
+  "scripts": {
+    "start": "electron --inspect=5858 ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwriegel/Commander.git"
+  },
+  "keywords": [
+    "node.js",
+    "electron",
+    "typescript"
+  ],
+  "author": "Uwe Riegel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uwriegel/Commander/issues"
+  },
+  "homepage": "https://github.com/uwriegel/Commander#readme",
+  "devDependencies": {
+    "electron": "^2.0.0"
+  }
+}

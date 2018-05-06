@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "strict": true,
+    "outDir": "../main-scripts",
+    "sourceMap": true,
+    "noEmitOnError": true,
+    "removeComments": false
+  }
+}
