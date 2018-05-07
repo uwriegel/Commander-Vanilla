@@ -7,8 +7,7 @@ A Norton like Commander based on Electron and typescript
 * npm start
 
 ## Test scenarios
-* include scrollbar.html in main.ts
-
+### Include scrollbar.html in main.ts
 You can only test the following:
 * Resizing window: scrollbar appears and disappears
 * Press upper and lower button: the scrollbar thumb will move
@@ -16,3 +15,6 @@ You can only test the following:
 * Move scrollbar thumb
 
 Content will not be scrolled!
+### Include columns.html in main.ts
+Now the columns control can be tested
+
