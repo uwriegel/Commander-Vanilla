@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" lang="de">
+    <title>TableView</title>
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/test/tableview.css">
+</head>
+<body>
+    <div id="container"></div>
+
+    <template id="it-iconName">
+        <td>
+            <div class="it-iconName">
+                <img class="it-image" src='assets/images/fault.png' alt="" onerror="this.src='assets/images/fault.png'">
+                <span class="it-nameValue"></span>
+            </div>
+        </td>
+    </template>
+
+    <template id="it-text">
+        <td>
+            <span class="it-text"></span>
+        </td>
+    </template>
+
+    <template id="it-size">
+        <td class="it-size">
+            <span class="it-text"></span>
+        </td>
+    </template>
+
+    <template id="it-parent">
+        <td>
+            <div class="it-iconName">
+                <img class="it-image" src='assets/images/parentfolder.png'>
+                <span class="it-nameValue">..</span>
+            </div>
+        </td>
+    </template>
+
+    <script>
+        require("./scripts/TestApps/tableView.js")
+    </script>
+</body>
+</html>
+

@@ -13,7 +13,8 @@ function createWindow () {
     // und Laden der index.html der App.
     win.loadURL(url.format({
         //pathname: path.join(__dirname, '../rendering/scrollbar.html'),
-        pathname: path.join(__dirname, '../rendering/columns.html'),
+        //pathname: path.join(__dirname, '../rendering/columns.html'),
+        pathname: path.join(__dirname, '../rendering/tableview.html'),
         protocol: 'file:',
         slashes: true
     }))
