@@ -1,7 +1,8 @@
 import { app, BrowserWindow, protocol } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
-
+//var getIcon: ((extension: string, callback: (result: Buffer) => void)=> void) = require('../addon/build/Release/addon')
+const addon = require('../addon/build/Release/addon')
 let win
 
 function createWindow () {
@@ -9,6 +10,16 @@ function createWindow () {
 
     protocol.registerStringProtocol('icon', (request, callback) => {
         console.log(decodeURI(request.url));
+
+        const text = "wörld 👌"
+
+        const text2 = addon.hello(text)
+        console.log(text2); // 'world'
+        console.log("Guten Tag")
+
+        // getIcon(request.url, (err: any, res: Buffer) => {
+        //     console.log(res)
+        // })
         callback("Affenköpf")
     }, (error) => {}
     )

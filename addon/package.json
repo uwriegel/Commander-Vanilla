@@ -1,0 +1,14 @@
+{
+    "name": "addon",
+    "version": "1.0.0",
+    "description": "C++ Addons",
+    "main": "./build/Release/addon",
+    "author": "Uwe Riegel",
+    "license": "MIT",
+    "gypfile": true,
+    "homepage": "https://github.com/uwriegel/Commander#readme",
+    "dependencies": {
+      "nan": "^2.10.0"
+    }
+}
+  

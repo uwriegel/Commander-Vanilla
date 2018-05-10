@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/uwriegel/Commander#readme",
   "devDependencies": {
-    "electron": "^2.0.0"
+    "electron": "^2.0.0",
+    "electron-rebuild": "^1.7.3"
   },
   "dependencies": {
-    "npm": "^6.0.0"
+    "nan": "^2.10.0",
+    "npm": "^6.0.0",
+    "addon": "file:./addon"
   }
 }

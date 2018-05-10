@@ -3,8 +3,22 @@ A Norton like Commander based on Electron and typescript
 
 ## To begin
 * npm i
+* .\node_modules\.bin\electron-rebuild.cmd
 * compile typescript
 * npm start
+
+## To build C++ Addon
+* npm install node-gyp -g
+* npm install --save-dev electron-rebuild
+* Install python 2.7
+* npm install --global --production windows-build-tools  
+in power shell mit Admin-Rechten
+* npm i -S nan
+
+### Manual build of addon
+* cd addon
+* node-gyp configure 
+* node-gyp build
 
 ## Test scenarios
 ### Include scrollbar.html in main.ts
