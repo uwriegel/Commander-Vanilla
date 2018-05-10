@@ -14,6 +14,8 @@ A Norton like Commander based on Electron and typescript
 * npm install --global --production windows-build-tools  
 in power shell mit Admin-Rechten
 * npm i -S nan
+* npm install (to build node addon) 
+* .\node_modules\.bin\electron-rebuild.cmd (to rebuild electron addon)
 
 ### Manual build of addon
 * cd addon
