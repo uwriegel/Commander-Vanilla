@@ -1,2 +1,3 @@
 // TODO: menu commands like hidden, themes, developer tools, full screen, exit, ...
+// TODO: adapt grip color on menu
 // TODO: Gridviews
