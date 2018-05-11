@@ -1,5 +1,6 @@
 #pragma once
 using namespace std;
+
 struct FileItem {
 	string name;
 	bool isDirectory;

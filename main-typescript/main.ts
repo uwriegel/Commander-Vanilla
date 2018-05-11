@@ -21,19 +21,13 @@ function createWindow () {
     win.loadURL(url.format({
         //pathname: path.join(__dirname, '../rendering/scrollbar.html'),
         //pathname: path.join(__dirname, '../rendering/columns.html'),
-        //pathname: path.join(__dirname, '../rendering/tableview.html'),
-        pathname: path.join(__dirname, '../rendering/iconview.html'),
+        //pathname: path.join(__dirname, '../rendering/iconview.html'),
+        pathname: path.join(__dirname, '../rendering/tableview.html'),
         protocol: 'file:',
         slashes: true
     }))
 
-    win.webContents.openDevTools()
-
-    addon.readDirectory("c:\\windows\\system32\\", (error, result) => {
-        result.forEach(file => {
-            console.log(file.name)
-        })
-    })
+    //win.webContents.openDevTools()
 }
 
 app.on('ready', createWindow)

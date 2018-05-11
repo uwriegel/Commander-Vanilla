@@ -13,7 +13,7 @@ export class DirectoryItems extends BaseItems {
         if (item.isDirectory) 
             img.src = "assets/images/folder.png"
         else
-            img.src = `getIcon?ext=${(ext == ".exe" ? this.basePath + item.name : ext)}`
+            img.src = `icon://${(ext == ".exe" ? this.basePath + item.name : ext)}`
         let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
         text.innerText = item.isDirectory ? item.name : FileHelper.getNameOnly(item.name)
         row.appendChild(child)
@@ -28,11 +28,11 @@ export class DirectoryItems extends BaseItems {
         child = this.textTemplate.cloneNode(true) as HTMLElement
         text = child.getElementsByClassName("it-text")[0] as HTMLElement
         if (item.exifDateTime) {
-            text.innerText = FileHelper.formatDate(item.exifDateTime)
+            //text.innerText = FileHelper.formatDate(item.exifDateTime)
             text.classList.add("exif")
         }
-        else if (item.dateTime)
-            text.innerText = FileHelper.formatDate(item.dateTime)
+        //else if (item.dateTime)
+             //text.innerText = FileHelper.formatDate(item.dateTime)
         row.appendChild(child)
 
         child = this.sizeTemplate.cloneNode(true) as HTMLElement
