@@ -4,41 +4,18 @@ import * as url from 'url'
 import * as addon from 'addon'
 import * as fs from "fs"
 
-// TODO: Icon length 0: retry
 // TODO: check buffer_cleanup c++ callback
-// TODO: check exe-Files
 
 let win
 
 function createWindow () {
     protocol.registerBufferProtocol('icon', (request, callback) => {
         const ext = decodeURI(request.url).substr(7)
-        console.log(ext)
-        // const text = "wörld 👌"
-        // console.log(text); // 'world'
-        // const text2 = addon.hello(text)
-        // console.log(text2); // 'world'
-        
-        addon.getIcon(ext, (error, result) => {
-            console.log(`kam zurück: ${ext} - ${result.byteLength}`)
-            callback(result)
-            // console.log("Callback:")
-            // if (error) {
-            //     console.log(error)
-            //     return
-            // }
-            // fs.writeFileSync("./test24.png", result)
-        })
-                // getIcon(request.url, (err: any, res: Buffer) => {
-        //     console.log(res)
-        // })
-        
+        addon.getIcon(ext, (error, result) => callback(result))
     }, (error) => {}
     )
 
     console.log("Creating window")
-
-
 
     // Erzeugung des Browser Fensters
     win = new BrowserWindow({width: 800, height: 600})
@@ -53,7 +30,7 @@ function createWindow () {
         slashes: true
     }))
 
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 }
 
 app.on('ready', createWindow)
