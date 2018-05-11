@@ -3,9 +3,12 @@ import * as path from 'path'
 import * as url from 'url'
 import * as addon from 'addon'
 import * as fs from "fs"
-let win
 
-//import * as schitt from 'addon'
+// TODO: Icon length 0: retry
+// TODO: check buffer_cleanup c++ callback
+// TODO: check exe-Files
+
+let win
 
 function createWindow () {
     protocol.registerBufferProtocol('icon', (request, callback) => {
