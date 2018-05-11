@@ -12,7 +12,7 @@ let win
 
 function createWindow () {
     protocol.registerBufferProtocol('icon', (request, callback) => {
-        const ext = decodeURI(request.url).substr(8)
+        const ext = decodeURI(request.url).substr(7)
         console.log(ext)
         // const text = "wörld 👌"
         // console.log(text); // 'world'

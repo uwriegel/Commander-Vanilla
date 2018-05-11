@@ -37,11 +37,20 @@ void ExtractIcon(const wstring& icon_path, vector<char>& bytes) {
 	SHFILEINFOW file_info{ 0 };
 	SHGetFileInfoW(icon_path.c_str(), FILE_ATTRIBUTE_NORMAL, &file_info, sizeof(file_info),
 		SHGFI_ICON | SHGFI_SMALLICON | SHGFI_USEFILEATTRIBUTES | SHGFI_TYPENAME);
-	auto icon = file_info.hIcon;
-	auto result = CreateAlphaChannelBitmapFromIcon(icon);
+	if (file_info.hIcon == nullptr) {
+		for (auto i = 0; i < 3; i++) {
+			SHGetFileInfoW(icon_path.c_str(), FILE_ATTRIBUTE_NORMAL, &file_info, sizeof(file_info),
+				SHGFI_ICON | SHGFI_SMALLICON | SHGFI_USEFILEATTRIBUTES | SHGFI_TYPENAME);
+			Sleep(20);
+			if (file_info.hIcon != nullptr)
+				break;
+		}
+	}
+	auto result = CreateAlphaChannelBitmapFromIcon(file_info.hIcon);
 	MemoryStream ms(bytes);
 	result.bmp->Save(&ms, &png_clsid);
-	DestroyIcon(icon);
+
+	DestroyIcon(file_info.hIcon);
 }
 
 CLSID GetEncoderClsid(const wstring& format)
