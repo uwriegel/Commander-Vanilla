@@ -14,7 +14,7 @@ wstring Utf8Decode(const string &str)
 	auto size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
 	wstring wstrTo(size_needed, 0);
 	MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size_needed);
-	return wstrTo;
+	return move(wstrTo);
 }
 
 string Utf8Encode(const std::wstring &wstr)
@@ -24,7 +24,7 @@ string Utf8Encode(const std::wstring &wstr)
 	auto size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
 	string strTo(size_needed, 0);
 	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
-	return strTo;
+	return move(strTo);
 }
 
 void BufferDeleteCallback(char* unused, void* theVector) { delete reinterpret_cast<vector<char>*>(theVector); }
@@ -49,28 +49,28 @@ NAN_METHOD(getIcon) {
 
 NAN_METHOD(Method) {
 
-	MessageBoxA(0, "Nan", "3", MB_OK);
+	MessageBoxA(0, "Nanni20", "3", MB_OK);
 
 	Utf8String s(info[0]->ToString());
 	string str(*s);
 	MessageBoxA(0, *s, "3", MB_OK);
 	MessageBoxA(0, str.c_str(), "4", MB_OK);
-	MessageBoxW(0, L"wˆrld", L"4ù", MB_OK);
+	MessageBoxW(0, L"wˆrld", L"4¸", MB_OK);
 	MessageBoxA(0, str.c_str(), str.c_str(), MB_OK);
 
 	auto ws = Utf8Decode(str);
 	MessageBoxW(0, ws.c_str(), ws.c_str(), MB_OK);
 
-	wchar_t buff[300] = L"wˆrld ùù Nann";
+	wchar_t buff[300] = L"wˆrld ﬂﬂ Nann";
 	wcscat(buff, ws.c_str());
 
 	auto u8 = Utf8Encode(buff);
 	MessageBoxW(0, ws.c_str(), ws.c_str(), MB_OK);
 	MessageBoxW(0, buff, buff, MB_OK);
 
-	//info.GetReturnValue().Set(Nan::New<String>(u8.c_str()).ToLocalChecked());
-	info.GetReturnValue().Set(Nan::New<String>(str.c_str()).ToLocalChecked());
+	info.GetReturnValue().Set(Nan::New<String>(u8.c_str()).ToLocalChecked());
 }
+
 
 NAN_MODULE_INIT(init) {
 	Nan::Set(target, New<String>("hello").ToLocalChecked(), GetFunction(New<FunctionTemplate>(Method)).ToLocalChecked());

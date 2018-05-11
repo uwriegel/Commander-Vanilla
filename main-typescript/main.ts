@@ -1,28 +1,40 @@
 import { app, BrowserWindow, protocol } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
-//var getIcon: ((extension: string, callback: (result: Buffer) => void)=> void) = require('../addon/build/Release/addon')
-const addon = require('../addon/build/Release/addon')
+import * as addon from 'addon'
+import * as fs from "fs"
 let win
 
+//import * as schitt from 'addon'
+
 function createWindow () {
-    console.log("Creating window")
-
-    protocol.registerStringProtocol('icon', (request, callback) => {
-        console.log(decodeURI(request.url));
-
-        const text = "wörld 👌"
-
-        const text2 = addon.hello(text)
-        console.log(text2); // 'world'
-        console.log("Guten Tag")
-
-        // getIcon(request.url, (err: any, res: Buffer) => {
+    protocol.registerBufferProtocol('icon', (request, callback) => {
+        const ext = decodeURI(request.url).substr(8)
+        console.log(ext)
+        // const text = "wörld 👌"
+        // console.log(text); // 'world'
+        // const text2 = addon.hello(text)
+        // console.log(text2); // 'world'
+        
+        addon.getIcon(ext, (error, result) => {
+            console.log(`kam zurück: ${ext} - ${result.byteLength}`)
+            callback(result)
+            // console.log("Callback:")
+            // if (error) {
+            //     console.log(error)
+            //     return
+            // }
+            // fs.writeFileSync("./test24.png", result)
+        })
+                // getIcon(request.url, (err: any, res: Buffer) => {
         //     console.log(res)
         // })
-        callback("Affenköpf")
+        
     }, (error) => {}
     )
+
+    console.log("Creating window")
+
 
 
     // Erzeugung des Browser Fensters
@@ -40,6 +52,5 @@ function createWindow () {
 
     win.webContents.openDevTools()
 }
-
 
 app.on('ready', createWindow)
