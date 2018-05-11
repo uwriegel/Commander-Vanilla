@@ -2,7 +2,6 @@ import { app, BrowserWindow, protocol } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
 import * as addon from 'addon'
-import * as fs from "fs"
 
 let win
 
@@ -29,6 +28,12 @@ function createWindow () {
     }))
 
     win.webContents.openDevTools()
+
+    addon.readDirectory("c:\\windows\\system32\\", (error, result) => {
+        result.forEach(file => {
+            console.log(file.name)
+        })
+    })
 }
 
 app.on('ready', createWindow)

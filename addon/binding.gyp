@@ -5,6 +5,7 @@
             "sources": [
                 "addon.cpp",
                 "IconExtractor.cpp",
+                "FileSystem.cpp",
                 "MemoryStream.cpp",
                 "Worker.cpp",
                 "utf8.cpp"                
