@@ -4,8 +4,6 @@ import * as url from 'url'
 import * as addon from 'addon'
 import * as fs from "fs"
 
-// TODO: check buffer_cleanup c++ callback
-
 let win
 
 function createWindow () {
@@ -30,7 +28,7 @@ function createWindow () {
         slashes: true
     }))
 
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
 }
 
 app.on('ready', createWindow)

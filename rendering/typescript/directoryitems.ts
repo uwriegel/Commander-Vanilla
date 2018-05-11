@@ -6,6 +6,7 @@ export class DirectoryItems extends BaseItems {
     constructor(basePath: string) { super(basePath) }
 
     appendColumns(row: HTMLTableRowElement, item: DirectoryItem) {
+        // TODO: in items requestid, die erhöht wird. asynchron von jedem nicht gefüllten item hier anstoßen, die fehlenden Daten zu füllen, requestid überprüfen
         let child = this.nameTemplate.cloneNode(true) as HTMLElement
         const img = child.getElementsByClassName("it-image")[0] as HTMLImageElement
         const ext = FileHelper.getExtension(item.name)
