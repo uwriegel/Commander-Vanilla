@@ -9,11 +9,9 @@ A Norton like Commander based on Electron and typescript
 
 ## To build C++ Addon
 * npm install node-gyp -g
-* npm install --save-dev electron-rebuild
 * Install python 2.7
 * npm install --global --production windows-build-tools  
 in power shell mit Admin-Rechten
-* npm i -S nan
 * npm install (to build node addon) 
 * .\node_modules\.bin\electron-rebuild.cmd (to rebuild electron addon)
 
@@ -33,4 +31,7 @@ You can only test the following:
 Content will not be scrolled!
 ### Include columns.html in main.ts
 Now the columns control can be tested
+
+### Include iconview.html in main.ts
+Retrieve several icons from Windows via C++ addon
 
