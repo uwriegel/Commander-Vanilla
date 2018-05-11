@@ -3,39 +3,7 @@ import { TableView } from '../tableView.js'
 import { DirectoryItems } from '../DirectoryItems.js'
 import * as addon from 'addon'
 
-interface TestItem extends Item {
-    erw: string
-    date: string
-    size: number
-}
-
-function withoutService() {
-    const tableViewParent = document.getElementById("container")!
-    const tableView = new TableView(tableViewParent, "Table")
-
-    const columnItems = new DirectoryItems("c:\\windows\\")
-    tableView.setColumns(columnItems.columns, "testColumns")
-    tableView.setItemsControl(columnItems)
-
-    var items: TestItem[] = [{
-        name: "Test",
-        isDirectory: false,
-        isSelected: false,
-        erw: "txt",
-        date: "25.02.1999 14:23",
-        size: 123.567
-    }, {
-        name: "Bild",
-        isDirectory: false,
-        isSelected: false,
-        erw: "jpg",
-        date: "15.12.2009 12: 39",
-        size: 678.435
-    }]
-    tableView.setItems(items)
-}
-
-async function withService() {
+async function fill() {
     const tableViewParent = document.getElementById("container")!
     const tableView = new TableView(tableViewParent, "Table")
 
@@ -54,7 +22,7 @@ async function withService() {
                         isDirectory: item.isDirectory,
                         isSelected: false,
                         isHidden: item.isHidden,
-                        dateTime: item.time as any,
+                        dateTime: item.time,
                         fileSize: item.size    
                     }     
                 }))
@@ -78,9 +46,5 @@ async function withService() {
     tableView.focus()
 }
 
-const runWithService = true
+fill()
 
-if (runWithService)
-    withService()
-else
-    withoutService()

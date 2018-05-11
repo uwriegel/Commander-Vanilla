@@ -31,8 +31,8 @@ export class DirectoryItems extends BaseItems {
             //text.innerText = FileHelper.formatDate(item.exifDateTime)
             text.classList.add("exif")
         }
-        //else if (item.dateTime)
-             //text.innerText = FileHelper.formatDate(item.dateTime)
+        else if (item.dateTime)
+             text.innerText = FileHelper.formatDate(item.dateTime)
         row.appendChild(child)
 
         child = this.sizeTemplate.cloneNode(true) as HTMLElement
@@ -70,9 +70,15 @@ export class DirectoryItems extends BaseItems {
 
     private onDateSort(ascending: boolean) {
         return this.onSort((a, b) => {
-            var date1 = (<DirectoryItem>a).exifDateTime ? (<DirectoryItem>a).exifDateTime : (<DirectoryItem>a).dateTime
-            var date2 = (<DirectoryItem>b).exifDateTime ? (<DirectoryItem>b).exifDateTime : (<DirectoryItem>b).dateTime
-            return date1!.localeCompare(date2!)
+            // var date1 = (<DirectoryItem>a).exifDateTime ? (<DirectoryItem>a).exifDateTime : (<DirectoryItem>a).dateTime
+            // var date2 = (<DirectoryItem>b).exifDateTime ? (<DirectoryItem>b).exifDateTime : (<DirectoryItem>b).dateTime
+            // return date1!.localeCompare(date2!)
+            var result = 0
+            if ((<DirectoryItem>a).dateTime < ((<DirectoryItem>b).dateTime!))
+                result = -1
+            else if ((<DirectoryItem>a).dateTime > ((<DirectoryItem>b).dateTime!))
+                result = 1
+            return result
         }, ascending)
     }
 

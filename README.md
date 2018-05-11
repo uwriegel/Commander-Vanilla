@@ -35,3 +35,6 @@ Now the columns control can be tested
 ### Include iconview.html in main.ts
 Retrieve several icons from Windows via C++ addon
 
+### Include tableview.html in main.ts
+Test tableview functionality, column sorting, scrolling, ...
+

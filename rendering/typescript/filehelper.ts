@@ -30,8 +30,7 @@ export function formatFileSize(fileSize: number): string {
     return strNumber
 }
 
-export function formatDate(dateString: string): string {
-    var date = new Date(dateString)
+export function formatDate(date: Date): string {
     return dateFormat.format(date) + " " + timeFormat.format(date)
 }
 

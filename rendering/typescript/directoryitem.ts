@@ -1,7 +1,7 @@
 import { Item } from './Item'
 
 export interface DirectoryItem extends Item {
-    dateTime: string
+    dateTime: Date
     exifDateTime?: string
     updated?: string
     fileSize: number
