@@ -24,7 +24,7 @@ NAN_METHOD(getIcon) {
 		// set up return arguments
 		auto bytes = NewBuffer(icon->data(), icon->size(), BufferDeleteCallback, icon).ToLocalChecked();
 		Local<Value> argv[] = { Nan::Null(), bytes };
-		callback->Call(2, argv);
+		Call(*callback, 2, argv).ToLocalChecked();
 	}));
 }
 
