@@ -9,8 +9,11 @@
     text-overflow: ellipsis;
 }
 
+.it-measureimage {
+    height: 16px;
+    width: 16px;
+}
 .it-image {
-    /* height: 16px; */
     width: 16px;
 }
 

@@ -1,6 +1,5 @@
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
-// TODO: Height of tableview to large
 // TODO: adapt grip color on menu
 // TODO: Theme choice per menu
 // TODO: Gridviews

@@ -28,8 +28,10 @@ export abstract class BaseItems implements Items {
                 row.classList.remove("it-selected")
         }
         else {
-            let child = this.nameTemplate.cloneNode(true) as HTMLElement
-            let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
+            const child = this.nameTemplate.cloneNode(true) as HTMLElement
+            const img = child.getElementsByClassName("it-image")[0] as HTMLElement
+            img.classList.add("it-measureimage")
+            const text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
             text.innerText = " "
             row.appendChild(child)
         }
