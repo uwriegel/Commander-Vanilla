@@ -5,8 +5,7 @@ import { BaseItems } from './BaseItems.js'
 import { EmptyItems } from './EmptyItems.js'
 import { Item } from './item.js'
 import * as addon from 'addon'
-// TODO: Several icons initially too narrow
-// TODO: Sorting by name
+// TODO: Sorting by name    
 
 export class CommanderView {
     constructor(private parent: HTMLElement, id: string) {
