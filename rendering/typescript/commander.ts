@@ -1,5 +1,6 @@
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
+// TODO: Highlight color selected items
 // TODO: adapt grip color on menu
 // TODO: Theme choice per menu
 // TODO: Gridviews

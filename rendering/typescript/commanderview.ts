@@ -5,7 +5,6 @@ import { BaseItems } from './BaseItems.js'
 import { EmptyItems } from './EmptyItems.js'
 import { Item } from './item.js'
 import * as addon from 'addon'
-// TODO: Sorting by name    
 
 export class CommanderView {
     constructor(private parent: HTMLElement, id: string) {
@@ -123,12 +122,12 @@ export class CommanderView {
             this.tableView.pos1()
     }
 
-    // /**
-    // * Einschränken der Anzeige der Einträge auf die Beschränkten.
-    // * @param prefix Der eingegebene Prefix zur Beschänkung
-    // * @param back Im Prefix um einen Buchstaben zurückgehen
-    // * @returns true: Es wird restriktiert
-    // */
+    /**
+    * Einschränken der Anzeige der Einträge auf die Beschränkten.
+    * @param prefix Der eingegebene Prefix zur Beschänkung
+    * @param back Im Prefix um einen Buchstaben zurückgehen
+    * @returns true: Es wird restriktiert
+    */
     private restrict(items: Item[], prefix: string, back?: boolean): boolean {
         if (!this.originalItems)
             this.originalItems = items
@@ -175,10 +174,10 @@ export class CommanderView {
         this.restrictor.value = restrict
     }
 
-    private async getDirectoryItems(path: string)  {
+    private async getDirectoryItems(path: string) {
         return new Promise<Item[]>((res, rej) => {
             addon.readDirectory(path, (err, result) => {
-                res(result.map(item => {
+                var items = result.map(item => {
                     return {
                         name: item.name,
                         isDirectory: item.isDirectory,
@@ -186,8 +185,16 @@ export class CommanderView {
                         isHidden: item.isHidden,
                         dateTime: item.time,
                         fileSize: item.size    
-                    }     
-                }))
+                     }
+                }) as Item[]
+                var directories = ([{
+                    name: "..",
+                    isDirectory: true,
+                    isSelected: false,
+                    isHidden: false
+                }] as Item[]).concat(items.filter(item => item.isDirectory))
+                var files = items.filter(item => !item.isDirectory)
+                res(directories.concat(files))
             })
         })
     }

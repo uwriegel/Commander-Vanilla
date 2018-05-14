@@ -20,8 +20,11 @@ export abstract class BaseItems implements Items {
                 let child = this.parentTemplate.cloneNode(true) as HTMLElement
                 row.appendChild(child)
             }
-            else
+            else {
+                row.innerHTML = ""
                 this.appendColumns(row, item)
+            }
+                
             if (item.isSelected)
                 row.classList.add("it-selected")
             else
