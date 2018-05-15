@@ -1,5 +1,4 @@
 import { TableView } from './tableView.js'
-import { DirectoryItems } from './DirectoryItems.js'
 import { getShowHidden } from './globalsettings.js'
 import { BaseItems } from './BaseItems.js'
 import { EmptyItems } from './EmptyItems.js'
@@ -17,6 +16,11 @@ export class CommanderView {
                     this.restrictBack()
                     e.preventDefault()
                     break
+                case 13: // Return
+                    const [items, index] = this.tableView.getItemsToSort()
+                    if (items[index].isDirectory)
+                        this.changePath(this.path + '\\' + items[index].name + '\\')
+                    break;                    
                 case 27: // ESC
                     if (this.restrictor.value)
                         this.closeRestrict()
@@ -76,10 +80,14 @@ export class CommanderView {
         this.parent.appendChild(this.restrictor)
     } 
 
-    async setPath(path: string) {
-        this.items = new DirectoryItems(path)
-        this.tableView.setColumns(this.items.columns, "testColumns")
-        this.tableView.setItemsControl(this.items)
+    async changePath(path: string) {
+        this.path = path 
+        const items = this.items.changePath(path) 
+        if (items) {
+            this.items = items
+            this.tableView.setColumns(this.items.columns, "testColumns")
+            this.tableView.setItemsControl(this.items)
+        }
         await this.refresh()
     }
 
@@ -206,4 +214,5 @@ export class CommanderView {
     private items: BaseItems = new EmptyItems()
     private originalItems: Item[] | null = null
     private readonly tableView: TableView
+    private path = ""
 }

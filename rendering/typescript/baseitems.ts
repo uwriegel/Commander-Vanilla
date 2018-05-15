@@ -4,7 +4,9 @@ import { IColumn } from './columns.js'
 import { ISortable } from './ISortable'
 
 export abstract class BaseItems implements Items {
-    constructor(public readonly basePath: string) { }
+    constructor(public basePath: string) { }
+
+    abstract changePath(path: string) : BaseItems | null 
 
     createItem(item?: Item) {
         const row = document.createElement("tr")

@@ -1,5 +1,9 @@
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
+// TODO: Mouse click: same as enter
+// TODO: Directory append in DirectoryItems
+// TODO: final \\ in addon
+// TODO: parent ..: select parentDirectory
 // TODO: Highlight color selected items
 // TODO: adapt grip color on menu
 // TODO: Theme choice per menu
@@ -42,8 +46,8 @@ var commanderViewRight = new CommanderView(rightView, "rightView")
 commanderViewLeft.setOnFocus(() => focusedView = commanderViewLeft)
 commanderViewRight.setOnFocus(() => focusedView = commanderViewRight)
 commanderViewLeft.focus()
-commanderViewLeft.setPath("c:\\windows\\system32\\")
-commanderViewRight.setPath("c:\\")
+commanderViewLeft.changePath("c:\\windows\\system32\\")
+commanderViewRight.changePath("c:\\")
 
 createGrid(vgrip, grid, viewer, true, () => {
     commanderViewLeft.onResize()

@@ -5,6 +5,11 @@ import * as FileHelper from './filehelper.js'
 export class DirectoryItems extends BaseItems {
     constructor(basePath: string) { super(basePath) }
 
+    changePath(path: string) : BaseItems | null {
+        this.basePath = path
+        return null
+    }
+
     appendColumns(row: HTMLTableRowElement, item: DirectoryItem) {
         // TODO: in items requestid, die erhöht wird. asynchron von jedem nicht gefüllten item hier anstoßen, die fehlenden Daten zu füllen, requestid überprüfen
         let child = this.nameTemplate.cloneNode(true) as HTMLElement
