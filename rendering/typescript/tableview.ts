@@ -37,8 +37,7 @@ export class TableView implements ISortable {
             const tr = <HTMLTableRowElement>(<HTMLElement>evt.target).closest("tr")
             this.currentItemIndex = Array.from(this.tbody.querySelectorAll("tr")).findIndex(n => n == tr) + this.startPosition
 
-            //if (onCurrentItemChanged)
-            //    onCurrentItemChanged(currentItemIndex)
+            this.onCurrentItemChanged(this.currentItemIndex)
 
             if (!this.hasFocus())
                 tr.focus()
@@ -48,10 +47,9 @@ export class TableView implements ISortable {
 
         this.table.onkeydown = e => {
             switch (e.which) {
-                //case 13: // Return
-                //    if (onSelectedCallback)
-                //        onSelectedCallback(currentItemIndex, e.ctrlKey, e.altKey)
-                //    break;
+                case 13: // Return
+                    this.onSelectedCallback(e.ctrlKey, e.altKey)
+                    break;
                 case 33:
                     this.pageUp()
                     break
@@ -78,6 +76,8 @@ export class TableView implements ISortable {
             e.preventDefault() // prevent the default action (scroll / move caret)
         }
 
+        this.tbody.ondblclick = () => this.onSelectedCallback(false, false)
+
         this.tbody.addEventListener('mousewheel', evt => {
             var wheelEvent = <WheelEvent>evt
             var delta = wheelEvent.wheelDelta / Math.abs(wheelEvent.wheelDelta) * 3
@@ -86,6 +86,9 @@ export class TableView implements ISortable {
 
         this.resizeChecking()
     }
+
+    onCurrentItemChanged: (itemIndex: number) => void = i=>{}
+    onSelectedCallback: (openWith: boolean, showProperties: boolean) => void = (o, sp)=>{}
 
     setColumns(columns: IColumn[], columnsId: string) {
         this.columns.setColumns(columns, columnsId)
@@ -138,8 +141,7 @@ export class TableView implements ISortable {
      * @returns true, wenn der Fokus gesetzt werden konnte
      */
     focus(): boolean {
-        //if (onCurrentItemChanged)
-        //    onCurrentItemChanged(currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
 
         const index = this.currentItemIndex - this.startPosition
         if (index >= 0 && index < this.tableCapacity) {
@@ -260,8 +262,7 @@ export class TableView implements ISortable {
         }
 
         this.tbody.querySelectorAll('tr')[this.currentItemIndex - this.startPosition].focus()
-        //if (this.onCurrentItemChanged)
-        //    this.onCurrentItemChanged(this.currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
     }
 
     downOne() {
@@ -281,8 +282,7 @@ export class TableView implements ISortable {
             }
         }
         this.tbody.querySelectorAll('tr')[this.currentItemIndex - this.startPosition].focus()
-        //if (this.onCurrentItemChanged)
-        //    this.onCurrentItemChanged(this.currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
         return true
     }
 
@@ -309,8 +309,7 @@ export class TableView implements ISortable {
         }
 
         this.tbody.querySelectorAll('tr')[this.currentItemIndex - this.startPosition].focus()
-        //if (this.onCurrentItemChanged)
-        //    onCurrentItemChanged(currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
     }
 
     pageDown() {
@@ -333,8 +332,7 @@ export class TableView implements ISortable {
         }
 
         this.tbody.querySelectorAll('tr')[this.currentItemIndex - this.startPosition].focus()
-        //if (onCurrentItemChanged)
-        //    onCurrentItemChanged(currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
     }
 
     pos1() {
@@ -342,8 +340,7 @@ export class TableView implements ISortable {
         this.displayItems(0)
         this.currentItemIndex = 0
         this.tbody.querySelectorAll('tr')[0].focus()
-        //if (onCurrentItemChanged)
-        //    onCurrentItemChanged(currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
     }
 
     end() {
@@ -354,8 +351,7 @@ export class TableView implements ISortable {
             startPos = 0
         this.displayItems(startPos)
         this.tbody.querySelectorAll('tr')[this.currentItemIndex - this.startPosition].focus()
-        //if (onCurrentItemChanged)
-        //    onCurrentItemChanged(currentItemIndex)
+        this.onCurrentItemChanged(this.currentItemIndex)
     }
 
     scrollIntoView() {
@@ -398,9 +394,8 @@ export class TableView implements ISortable {
 
 
 
-//    let onCurrentItemChanged: (itemIndex: number) => void
+
 //    let onToggleSelection: (itemIndex: number) => void
-//    let onSelectedCallback: (itemIndex: number, openWith: boolean, showProperties: boolean) => void
 
 
 
@@ -412,10 +407,8 @@ export class TableView implements ISortable {
 
 
 
-//    tbody.ondblclick = () => {
-//        if (onSelectedCallback)
-//            onSelectedCallback(currentItemIndex, false, false)
-//    }
+
+//    
 
 //    {
 //        let tr = document.createElement("tr")
@@ -447,8 +440,6 @@ export class TableView implements ISortable {
 //        if (tableView == document.activeElement)
 //            focus()
 //        scrollIntoView()
-//        if (onCurrentItemChanged)
-//            onCurrentItemChanged(currentItemIndex)
 //    }
 
 //    function updateItems() {
@@ -466,14 +457,6 @@ export class TableView implements ISortable {
 //    function updateSelection(itemIndex: number) {
 //        const item = tbody.querySelectorAll('tr')[itemIndex - startPosition]
 //        presenter.updateSelection(item, items.getItem(itemIndex))
-//    }
-
-//    function setOnSelectedCallback(callback: (itemIndex: number, openWith: boolean, showProperties: boolean) => void) {
-//        onSelectedCallback = callback
-//    }
-
-//    function setOnCurrentItemChanged(callback: (itemIndex: number) => void) {
-//        onCurrentItemChanged = callback
 //    }
 
 //    function setOnToggleSelection(callback: (itemIndex: number) => void) {
@@ -543,8 +526,6 @@ export class TableView implements ISortable {
 //        updateItems: updateItems,
 //        updateSelections: updateSelections,
 //        updateSelection: updateSelection,
-//        setOnSelectedCallback: setOnSelectedCallback,
-//        setOnCurrentItemChanged: setOnCurrentItemChanged,
 //        setOnFocus: setOnFocus,
 //        setOnToggleSelection: setOnToggleSelection,
 //        focus: focus,

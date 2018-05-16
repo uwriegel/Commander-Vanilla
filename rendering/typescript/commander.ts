@@ -1,9 +1,11 @@
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
-// TODO: Mouse click: same as enter
+import { Item } from './item.js'
+import * as Path from 'path'
 // TODO: Directory append in DirectoryItems
 // TODO: final \\ in addon
 // TODO: parent ..: select parentDirectory
+// TODO: DirectoryEdit
 // TODO: Highlight color selected items
 // TODO: adapt grip color on menu
 // TODO: Theme choice per menu
@@ -40,6 +42,7 @@ const grip = document.getElementById("grip")!
 const viewer = document.getElementById("viewer")!
 const leftView = document.getElementById("leftView")!
 const rightView = document.getElementById("rightView")!
+const footer = document.getElementById("footer")!
 
 var commanderViewLeft = new CommanderView(leftView, "leftView")
 var commanderViewRight = new CommanderView(rightView, "rightView")
@@ -54,6 +57,21 @@ createGrid(vgrip, grid, viewer, true, () => {
     commanderViewRight.onResize()
 })
 createGrid(grip, leftView, rightView, false, () => { })
+
+commanderViewLeft.onCurrentItemChanged = currentItemChanged
+commanderViewRight.onCurrentItemChanged = currentItemChanged
+
+function currentItemChanged(item: Item, path: string) {
+    if (item) {
+        const text = Path.join(path, item.name)
+        footer.textContent = text
+        //viewer.selectionChanged(text)
+    }
+    else {
+        footer.textContent = "Nichts selektiert"
+        //viewer.selectionChanged("")
+    }
+}
 
 function initializeOnKeyDownHandler() {
     document.onkeydown = evt => {

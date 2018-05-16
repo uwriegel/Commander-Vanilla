@@ -8,6 +8,16 @@ import * as addon from 'addon'
 export class CommanderView {
     constructor(private parent: HTMLElement, id: string) {
         this.tableView = new TableView(this.parent, id)
+        this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
+            const [items, index] = this.tableView.getItemsToSort()
+            if (items[index].isDirectory)
+                this.changePath(this.path + '\\' + items[index].name + '\\')
+        }
+        this.tableView.onCurrentItemChanged = i => {
+            const [items, index] = this.tableView.getItemsToSort()
+            this.onCurrentItemChanged(items[index], this.path)
+        }
+
         this.parent.onkeypress = e => this.keysRestrict(e)
 
         this.parent.onkeydown = e => {
@@ -16,11 +26,6 @@ export class CommanderView {
                     this.restrictBack()
                     e.preventDefault()
                     break
-                case 13: // Return
-                    const [items, index] = this.tableView.getItemsToSort()
-                    if (items[index].isDirectory)
-                        this.changePath(this.path + '\\' + items[index].name + '\\')
-                    break;                    
                 case 27: // ESC
                     if (this.restrictor.value)
                         this.closeRestrict()
@@ -79,6 +84,8 @@ export class CommanderView {
         this.restrictor.classList.add('restrictorHide')
         this.parent.appendChild(this.restrictor)
     } 
+
+    onCurrentItemChanged: (item: Item, path: string) => void = (i, p)=>{}
 
     async changePath(path: string) {
         this.path = path 
