@@ -13,7 +13,7 @@ uint64_t convertWindowsTimeToUnixTime(const FILETIME& ft) {
 }
 
 void GetFileItems(const wstring& directory, vector<FileItem>& results) {
-	auto searchString = directory + L"*.*"s;
+	auto searchString = directory + L"\\*.*"s;
 	WIN32_FIND_DATAW w32fd{ 0 };
 	auto ret = FindFirstFileW(searchString.c_str(), &w32fd);
 	while (FindNextFileW(ret, &w32fd) == TRUE) {
