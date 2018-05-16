@@ -11,7 +11,7 @@ export class CommanderView {
         this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
             const [items, index] = this.tableView.getItemsToSort()
             if (items[index].isDirectory)
-                this.changePath(this.path + '\\' + items[index].name + '\\')
+                this.changePath(this.path + '\\' + items[index].name)
         }
         this.tableView.onCurrentItemChanged = i => {
             const [items, index] = this.tableView.getItemsToSort()

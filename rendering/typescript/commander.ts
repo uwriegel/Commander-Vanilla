@@ -3,8 +3,8 @@ import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
 // TODO: Directory append in DirectoryItems
-// TODO: final \\ in addon
 // TODO: parent ..: select parentDirectory
+// TODO: On parent: select last directory
 // TODO: DirectoryEdit
 // TODO: Highlight color selected items
 // TODO: adapt grip color on menu
@@ -49,8 +49,8 @@ var commanderViewRight = new CommanderView(rightView, "rightView")
 commanderViewLeft.setOnFocus(() => focusedView = commanderViewLeft)
 commanderViewRight.setOnFocus(() => focusedView = commanderViewRight)
 commanderViewLeft.focus()
-commanderViewLeft.changePath("c:\\windows\\system32\\")
-commanderViewRight.changePath("c:\\")
+commanderViewLeft.changePath("c:\\windows\\system32")
+commanderViewRight.changePath("c:")
 
 createGrid(vgrip, grid, viewer, true, () => {
     commanderViewLeft.onResize()
