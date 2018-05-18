@@ -2,9 +2,6 @@ import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: Directory append in DirectoryItems
-// TODO: parent ..: select parentDirectory
-// TODO: On parent: select last directory
 // TODO: DirectoryEdit
 // TODO: Highlight color selected items
 // TODO: adapt grip color on menu

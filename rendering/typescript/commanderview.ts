@@ -4,6 +4,7 @@ import { BaseItems } from './BaseItems.js'
 import { EmptyItems } from './EmptyItems.js'
 import { Item } from './item.js'
 import * as addon from 'addon'
+import * as Path from 'path'
 
 export class CommanderView {
     constructor(private parent: HTMLElement, id: string) {
@@ -11,7 +12,7 @@ export class CommanderView {
         this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
             const [items, index] = this.tableView.getItemsToSort()
             if (items[index].isDirectory)
-                this.changePath(this.path + '\\' + items[index].name)
+                this.changePath(Path.join(this.path, items[index].name))
         }
         this.tableView.onCurrentItemChanged = i => {
             const [items, index] = this.tableView.getItemsToSort()
@@ -88,6 +89,10 @@ export class CommanderView {
     onCurrentItemChanged: (item: Item, path: string) => void = (i, p)=>{}
 
     async changePath(path: string) {
+        if (this.restrictor.value)
+            this.closeRestrict()
+
+        const recentPath = this.path
         this.path = path 
         const items = this.items.changePath(path) 
         if (items) {
@@ -95,10 +100,10 @@ export class CommanderView {
             this.tableView.setColumns(this.items.columns, "testColumns")
             this.tableView.setItemsControl(this.items)
         }
-        await this.refresh()
+        await this.refresh(recentPath.startsWith(this.path) ? Path.basename(recentPath) : "")
     }
 
-    async refresh() {
+    async refresh(previousDirectory: string = "") {
         const [recentItems, currentIndex] = this.tableView.getItemsToSort()
         const currentItem = recentItems[currentIndex]
         const result = await this.getDirectoryItems(this.items.basePath)
@@ -111,7 +116,11 @@ export class CommanderView {
                     newItemIndex = index
             })
         }
-        this.tableView.setSortedItems(items, newItemIndex)
+        let previous = -1
+        if (previousDirectory) 
+            previous = items.findIndex(n => n.name == previousDirectory)
+        
+        this.tableView.setSortedItems(items, previous != -1 ? previous : newItemIndex)
     }
 
     focus() {
