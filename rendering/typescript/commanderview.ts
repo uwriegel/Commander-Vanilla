@@ -7,13 +7,12 @@ import * as addon from 'addon'
 import * as Path from 'path'
 
 export class CommanderView {
-    constructor(private parent: HTMLElement, id: string) {
+    constructor(parent: HTMLElement, id: string) {
         this.commanderDirectory.classList.add('directory')
-        const tableParent = document.createElement('div')
-        this.parent.appendChild(this.commanderDirectory)        
-        this.parent.appendChild(tableParent)
-        tableParent.style.flexGrow = "1"
-        this.tableView = new TableView(tableParent, id)
+        parent.appendChild(this.commanderDirectory)        
+        parent.appendChild(this.tableParent)
+        this.tableParent.style.flexGrow = "1"
+        this.tableView = new TableView(this.tableParent, id)
         this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
             const [items, index] = this.tableView.getItemsToSort()
             if (items[index].isDirectory)
@@ -24,9 +23,9 @@ export class CommanderView {
             this.onCurrentItemChanged(items[index], this.path)
         }
 
-        this.parent.onkeypress = e => this.keysRestrict(e)
+        this.tableParent.onkeypress = e => this.keysRestrict(e)
 
-        this.parent.onkeydown = e => {
+        this.tableParent.onkeydown = e => {
             switch (e.which) {
                 case 8: // BACKSPACE
                     this.restrictBack()
@@ -86,9 +85,27 @@ export class CommanderView {
             }
         }
 
+        this.commanderDirectory.onkeydown = e =>
+        {
+            switch (e.which)
+            {
+                case 13: // Enter
+                    // if (e.altKey)
+                    //     Connection.processItem(FileHelper.pathCombine(this.itemsModel.CurrentDirectory, this.commanderDirectory.value), true)
+                    // else
+                    //{
+                        this.changePath(this.commanderDirectory.value)
+                        this.tableView.focus()
+                    //}
+                    break;
+            }
+        }
+
+        this.commanderDirectory.onfocus = () => this.commanderDirectory.select()
+
         this.restrictor.classList.add('restrictor')
         this.restrictor.classList.add('restrictorHide')
-        this.parent.appendChild(this.restrictor)
+        this.tableParent.appendChild(this.restrictor)
     } 
 
     onCurrentItemChanged: (item: Item, path: string) => void = (i, p)=>{}
@@ -99,6 +116,7 @@ export class CommanderView {
 
         const recentPath = this.path
         this.path = path 
+        this.commanderDirectory.value = this.path
         const items = this.items.changePath(path) 
         if (items) {
             this.items = items
@@ -134,6 +152,14 @@ export class CommanderView {
 
     setOnFocus(callback: () => void) {
         this.tableView.setOnFocus(callback)
+    }
+
+    focusDirectoryInput() {
+        this.commanderDirectory.focus()
+    }
+
+    isDirectoryInputFocused() {
+        return this.commanderDirectory.contains(document.activeElement)
     }
     
     onResize() {
@@ -233,6 +259,7 @@ export class CommanderView {
     */
     private readonly restrictor = document.createElement('input')
     private readonly commanderDirectory = document.createElement("input")
+    private readonly tableParent = document.createElement('div')
     private readonly tableView: TableView
     private items: BaseItems = new EmptyItems()
     private originalItems: Item[] | null = null

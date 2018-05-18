@@ -2,7 +2,6 @@ import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: DirectoryEdit
 // TODO: Highlight color selected items
 // TODO: adapt grip color on menu
 // TODO: Theme choice per menu
@@ -75,15 +74,15 @@ function initializeOnKeyDownHandler() {
         switch (evt.which) {
             case 9: // TAB
                 if (!evt.shiftKey) {
-//                    if (focusedView.isDirectoryInputFocused())
-//                        focusedView.focus()
-//                    else {
-                    const toFocus = focusedView == commanderViewLeft ? commanderViewRight : commanderViewLeft
+                    if (focusedView.isDirectoryInputFocused())
+                        focusedView.focus()
+                    else {
+                        const toFocus = focusedView == commanderViewLeft ? commanderViewRight : commanderViewLeft
                         toFocus.focus()
-//                    }
+                    }
                 }
-                //else
-                //    focusedView.focusDirectoryInput()
+                else
+                    focusedView.focusDirectoryInput()
                 break
             default:
                 return
