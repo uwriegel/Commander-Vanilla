@@ -8,7 +8,12 @@ import * as Path from 'path'
 
 export class CommanderView {
     constructor(private parent: HTMLElement, id: string) {
-        this.tableView = new TableView(this.parent, id)
+        this.commanderDirectory.classList.add('directory')
+        const tableParent = document.createElement('div')
+        this.parent.appendChild(this.commanderDirectory)        
+        this.parent.appendChild(tableParent)
+        tableParent.style.flexGrow = "1"
+        this.tableView = new TableView(tableParent, id)
         this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
             const [items, index] = this.tableView.getItemsToSort()
             if (items[index].isDirectory)
@@ -227,8 +232,9 @@ export class CommanderView {
     * Das input-Element, welches die Beschränkungszeichen darstellt</var>
     */
     private readonly restrictor = document.createElement('input')
+    private readonly commanderDirectory = document.createElement("input")
+    private readonly tableView: TableView
     private items: BaseItems = new EmptyItems()
     private originalItems: Item[] | null = null
-    private readonly tableView: TableView
     private path = ""
 }
