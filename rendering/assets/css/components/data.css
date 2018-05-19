@@ -35,3 +35,11 @@
     color: var(--selected-color);
 }
 
+.tableView tr:hover {
+    background-color: var(--commander-item-hover);
+}
+
+.tableView tr.it-selected:hover {
+    background-color: var(--selected-bg-hover-color);
+    color: var(--selected-color);
+}

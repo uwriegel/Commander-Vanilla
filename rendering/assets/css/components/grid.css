@@ -10,14 +10,14 @@
 }
 
 #grip {
-    background-color: lightgray;
+    background-color: var(--grip-color);
     transition: background-color 0.4s;
     width: 6px;
     cursor: ew-resize;
 }
 
 #vgrip {
-    background-color: lightgray;
+    background-color: var(--grip-color);
     transition: background-color 0.4s;
     height: 6px;
     width: 100%;
@@ -30,4 +30,4 @@
 
 #grip:active, #vgrip:active {
     background-color: #6b6969;
-    
+}

@@ -12,10 +12,6 @@
     transition: background-color 0.3s;
 }
 
-.tableView tr:hover {
-    background-color: var(--commander-item-hover);
-}
-
 .tableView td {
     overflow: hidden;
     text-overflow: ellipsis;

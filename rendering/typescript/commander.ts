@@ -2,8 +2,7 @@ import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: Highlight color selected items
-// TODO: adapt grip color on menu
+// TODO: Grip resize with mouse not really following
 // TODO: Theme choice per menu
 // TODO: Gridviews
 
