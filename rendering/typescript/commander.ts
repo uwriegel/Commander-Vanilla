@@ -5,6 +5,7 @@ import * as Path from 'path'
 // TODO: Grid test program, grid vertical and horizontal, not accurate
 // TODO: Theme choice per menu
 // TODO: Viewer
+// TODO: Drive items
 
 function setTheme(theme: string) {
     localStorage["theme"] = theme
