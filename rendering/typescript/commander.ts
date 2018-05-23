@@ -2,7 +2,6 @@ import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: Grid test program, grid vertical and horizontal, not accurate
 // TODO: Theme choice per menu
 // TODO: Viewer
 // TODO: Drive items
