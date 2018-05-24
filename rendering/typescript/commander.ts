@@ -1,9 +1,10 @@
 import { ipcRenderer } from "electron"
+import * as Path from 'path'
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
-import * as Path from 'path'
-// TODO: hidden items
+import { setShowHidden } from './globalsettings'
+
 // TODO: Drive items
 // TODO: Version
 // TODO: Exif
@@ -72,6 +73,11 @@ ipcRenderer.on("viewer", (_: any, on: boolean) => {
     }
     commanderViewLeft.onResize()
     commanderViewRight.onResize()
+})
+ipcRenderer.on("setShowHidden", (_: any, on: boolean) => {
+    setShowHidden(on)
+    commanderViewLeft.refresh()
+    commanderViewRight.refresh()
 })
 
 function currentItemChanged(item: Item, path: string) {
