@@ -1,8 +1,8 @@
+import { ipcRenderer } from "electron"
 import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: Theme choice per menu
 // TODO: Viewer
 // TODO: Drive items
 
@@ -55,6 +55,8 @@ createGrid(grip, leftView, rightView, false, () => { })
 
 commanderViewLeft.onCurrentItemChanged = currentItemChanged
 commanderViewRight.onCurrentItemChanged = currentItemChanged
+
+ipcRenderer.on("setTheme", (_: any, theme: string) => setTheme(theme))
 
 function currentItemChanged(item: Item, path: string) {
     if (item) {

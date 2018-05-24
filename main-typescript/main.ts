@@ -120,8 +120,22 @@ app.on('ready', () => {
                 type: "checkbox"
             },
             {
+                type: 'separator'
+            },            
+            {
+                label: '&Blaues Thema',
+                type: "radio",
+                click: () =>  mainWindow.webContents.send("setTheme", "blue")
+            },
+            {
+                label: '&Hellblaues Thema',
+                type: "radio",
+                click: () =>  mainWindow.webContents.send("setTheme", "lightblue")
+            },
+            {
                 label: '&Dunkles Thema',
-                type: "checkbox"
+                type: "radio",
+                click: () =>  mainWindow.webContents.send("setTheme", "dark")
             },
             {
                 type: 'separator'
