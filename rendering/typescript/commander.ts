@@ -3,7 +3,7 @@ import { CommanderView } from './CommanderView.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import * as Path from 'path'
-// TODO: Viewer
+// TODO: hidden items
 // TODO: Drive items
 
 function setTheme(theme: string) {
@@ -57,6 +57,19 @@ commanderViewLeft.onCurrentItemChanged = currentItemChanged
 commanderViewRight.onCurrentItemChanged = currentItemChanged
 
 ipcRenderer.on("setTheme", (_: any, theme: string) => setTheme(theme))
+ipcRenderer.on("viewer", (_: any, on: boolean) => {
+    if (on) {
+        vgrip.classList.remove("hidden")
+        viewer.classList.remove("hidden")
+    }
+    else {
+        vgrip.classList.add("hidden")
+        viewer.classList.add("hidden")
+        grid.style.flex = null
+    }
+    commanderViewLeft.onResize()
+    commanderViewRight.onResize()
+})
 
 function currentItemChanged(item: Item, path: string) {
     if (item) {

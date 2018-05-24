@@ -19,7 +19,7 @@
 #vgrip {
     background-color: var(--grip-color);
     transition: background-color 0.4s;
-    height: 6px;
+    flex: 0 0 6px;
     width: 100%;
     cursor: ns-resize;
 }

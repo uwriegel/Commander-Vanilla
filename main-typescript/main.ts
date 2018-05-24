@@ -33,6 +33,7 @@ app.on('ready', () => {
         //pathname: path.join(__dirname, '../rendering/columns.html'),
         //pathname: path.join(__dirname, '../rendering/iconview.html'),
         //pathname: path.join(__dirname, '../rendering/tableview.html'),
+        //pathname: path.join(__dirname, '../rendering/grid.html'),
 
         pathname: path.join(__dirname, '../rendering/commander.html'),
 
@@ -118,6 +119,15 @@ app.on('ready', () => {
                 label: '&Versteckte Dateien',
                 accelerator: "Ctrl+H",
                 type: "checkbox"
+            },
+            {
+                type: 'separator'
+            },            
+            {
+                label: '&Vorschau',
+                accelerator: "F3",
+                type: "checkbox",
+                click: evt =>  mainWindow.webContents.send("viewer", evt.checked)
             },
             {
                 type: 'separator'

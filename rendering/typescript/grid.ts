@@ -4,7 +4,6 @@ export function createGrid(grip: HTMLElement, view1: HTMLElement, view2: HTMLEle
         if (evt.which != 1)
             return
 
-        let procent1 = 0.5
         const size1 = isVertical ? view1.offsetHeight : view1.offsetWidth
         const size2 = isVertical ? view2.offsetHeight : view2.offsetWidth
         const initialPosition = isVertical ? evt.pageY : evt.pageX
@@ -17,8 +16,8 @@ export function createGrid(grip: HTMLElement, view1: HTMLElement, view2: HTMLEle
 
             const newSize1 = size1 + delta
             const newSize2 = size2 - delta
-            procent1 = (newSize1 / (newSize1 + newSize2 + grip.offsetWidth)) * 100
-            view1.style.flex = `0 0 ${procent1}%`
+            const procent1 = isVertical ? newSize1 : newSize1 / (newSize1 + newSize2 + grip.offsetWidth) * 100
+            view1.style.flex = `0 0 ${procent1}${(isVertical ? "px" : "%")}`
             view2.style.flexGrow = `1`
             onChanged()
 
