@@ -5,6 +5,9 @@ import { Item } from './item.js'
 import * as Path from 'path'
 // TODO: hidden items
 // TODO: Drive items
+// TODO: Version
+// TODO: Exif
+// TODO: exe-icons
 
 function setTheme(theme: string) {
     localStorage["theme"] = theme
