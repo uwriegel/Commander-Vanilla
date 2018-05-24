@@ -37,4 +37,3 @@ Retrieve several icons from Windows via C++ addon
 
 ### Include tableview.html in main.ts
 Test tableview functionality, column sorting, scrolling, ...
-

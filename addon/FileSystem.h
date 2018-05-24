@@ -9,4 +9,13 @@ struct FileItem {
 	uint64_t time;
 };
 
+struct DriveInfo {
+	string Name;
+	string VolumeLabel;
+	ULARGE_INTEGER TotalSize;
+	int Type;
+	bool IsReady;
+};
+
 extern void GetFileItems(const wstring& directory, vector<FileItem>& results);
+extern void GetDriveInfo(vector<DriveInfo>& results);

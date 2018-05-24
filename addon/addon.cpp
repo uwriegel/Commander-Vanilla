@@ -44,7 +44,7 @@ NAN_METHOD(ReadDirectory) {
 			for (auto item : *items) {
 				Local<Object> result = New<Object>();
 
-				result->Set(New<String>("name").ToLocalChecked(),
+				result->Set(New<String>("name").ToLocalChecked(), 
 					New<String>(item.name.c_str()).ToLocalChecked());
 				result->Set(New<String>("size").ToLocalChecked(), New<Number>(static_cast<double>(item.size)));
 				result->Set(New<String>("time").ToLocalChecked(),
@@ -55,8 +55,37 @@ NAN_METHOD(ReadDirectory) {
 			}
 
 			Local<Value> argv[] = { Nan::Null(), resultList };
+			delete items;
 			Call(*callback, 2, argv).ToLocalChecked();
 		}
+	));
+}
+
+NAN_METHOD(GetDrives) {
+	auto callback = new Callback(info[0].As<Function>());
+	 auto driveInfos = new vector<DriveInfo>;
+	 AsyncQueueWorker(new Worker(callback,
+	 	[driveInfos]()-> void { GetDriveInfo(*driveInfos); },
+	 	[driveInfos](Nan::Callback* callback)-> void {
+	 		Local<Array> resultList = New<Array>(driveInfos->size());
+	 		int i{ 0 };
+	 		for (auto driveInfo : *driveInfos) {
+	 			Local<Object> result = New<Object>();
+
+				result->Set(New<String>("name").ToLocalChecked(),
+					New<String>(driveInfo.Name).ToLocalChecked());
+				result->Set(New<String>("label").ToLocalChecked(),
+					New<String>(driveInfo.VolumeLabel).ToLocalChecked());
+				result->Set(New<String>("size").ToLocalChecked(), New<Number>(static_cast<double>(driveInfo.TotalSize.QuadPart)));
+				result->Set(New<String>("type").ToLocalChecked(), New<Number>(driveInfo.Type));
+				result->Set(New<String>("isReady").ToLocalChecked(), New<Boolean>(driveInfo.IsReady));
+	 			resultList->Set(i++, result);
+			}		
+
+			Local<Value> argv[] = { Nan::Null(), resultList };
+			delete driveInfos;
+			Call(*callback, 2, argv).ToLocalChecked();
+	 	}
 	));
 }
 
@@ -66,6 +95,7 @@ NAN_METHOD(ReadDirectory) {
 NAN_MODULE_INIT(init) {
 	Nan::Set(target, New<String>("getIcon").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetIcon)).ToLocalChecked());
 	Nan::Set(target, New<String>("readDirectory").ToLocalChecked(), GetFunction(New<FunctionTemplate>(ReadDirectory)).ToLocalChecked());
+	Nan::Set(target, New<String>("getDrives").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetDrives)).ToLocalChecked());
 }
 
 NODE_MODULE(addon, init)
