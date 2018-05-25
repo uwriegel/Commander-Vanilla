@@ -6,6 +6,8 @@ const addon: Addon = require('addon')
 // TODO: Exif
 // TODO: exe-icons
 // TODO: Drive items type (drive, usb network cd)
+// TODO: preselect theme in menue
+// TODO: select theme before displaying main window
 class Commander {
     constructor() {
         this.setTheme(localStorage["theme"] || "blue")
