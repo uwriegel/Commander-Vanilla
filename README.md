@@ -5,7 +5,7 @@ A Norton like Commander based on Electron and typescript
 * npm i
 * .\node_modules\.bin\electron-rebuild.cmd
 * compile typescript (main and rendering)
-* npm start
+* 'npm start' or 'F5' to debug main process
 
 ## To build C++ Addon
 * npm install node-gyp -g

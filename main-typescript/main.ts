@@ -41,16 +41,11 @@ app.on('ready', () => {
         slashes: true
     }))
 
-    mainWindow.on('close', () => {
-        if (!mainWindow.isMaximized()) {
-            const bounds = mainWindow.getBounds()
-            settings.set("window-bounds", JSON.stringify(bounds))
-        }
-    })
+    mainWindow.on('resize', () => saveBounds())
+
+    mainWindow.on('move', () => saveBounds())
 
     mainWindow.on('maximize', () => {
-        const bounds = mainWindow.getBounds()
-        settings.set("window-bounds", JSON.stringify(bounds))
         settings.set("isMaximized", true)
     })
 
@@ -166,6 +161,13 @@ app.on('ready', () => {
             }
         ]}
     ])
+
+    function saveBounds() {
+        if (!mainWindow.isMaximized()) {
+            const bounds = mainWindow.getBounds()
+            settings.set("window-bounds", JSON.stringify(bounds))
+        }
+    }
     
     Menu.setApplicationMenu(menu)    
 })
