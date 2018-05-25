@@ -113,7 +113,4 @@ class DirectoryItems extends BaseItems {
     private onVersionSort(ascending: boolean) {
         return this.onSort((a, b) => FileHelper.compareVersion((<DirectoryItem>a).version, (<DirectoryItem>b).version), ascending)
     }
-
-    private textTemplate = (document.getElementById("it-text") as HTMLTemplateElement).content.querySelector("td")!
-    private sizeTemplate = (document.getElementById("it-size") as HTMLTemplateElement).content.querySelector("td")!
 }

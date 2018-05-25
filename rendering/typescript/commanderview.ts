@@ -11,6 +11,8 @@ class CommanderView {
             if (items[index].isDirectory) {
                 if (this.path.endsWith(":\\") && items[index].name == "..") 
                     this.changePath("root")
+                else if (this.path == "root")
+                    this.changePath(items[index].name)
                 else
                     this.changePath(Path.join(this.path, items[index].name))
             }
@@ -122,7 +124,8 @@ class CommanderView {
             this.tableView.setItemsControl(this.items)
         }
         this.items.changePath(path)
-        await this.refresh(recentPath.startsWith(this.path) ? Path.basename(recentPath) : "")
+        await this.refresh(recentPath.startsWith(this.path) ? Path.basename(recentPath) : 
+            ((recentPath.endsWith(":\\") && path == "root") ? recentPath : ""))
     }
 
     async refresh(previousDirectory: string = "") {

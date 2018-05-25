@@ -2,11 +2,10 @@ const {ipcRenderer} = require('electron')
 const Path = require('path')
 const addon: Addon = require('addon')
 
-// TODO: Drive items
 // TODO: Version
 // TODO: Exif
 // TODO: exe-icons
-//const addon: Addon = require('addon')
+// TODO: Drive items type (drive, usb network cd)
 class Commander {
     constructor() {
         this.setTheme(localStorage["theme"] || "blue")

@@ -99,4 +99,6 @@ abstract class BaseItems implements Items {
 
     private parentTemplate = (document.getElementById("it-parent") as HTMLTemplateElement).content.querySelector("td")!
     protected nameTemplate = (document.getElementById("it-iconName") as HTMLTemplateElement).content.querySelector("td")!
+    protected textTemplate = (document.getElementById("it-text") as HTMLTemplateElement).content.querySelector("td")!
+    protected sizeTemplate = (document.getElementById("it-size") as HTMLTemplateElement).content.querySelector("td")!
 }
