@@ -8,7 +8,9 @@
                 "FileSystem.cpp",
                 "MemoryStream.cpp",
                 "Worker.cpp",
-                "utf8.cpp"                
+                "utf8.cpp",
+                "Helpers.cpp",
+                "ExifReader.cpp"                
             ],
             "include_dirs" : [
                 "<!(node -e \"require('nan')\")"

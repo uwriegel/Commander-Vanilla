@@ -25,5 +25,6 @@ interface Addon {
     readDirectory(path: string, callback: (error: any, result: FileItem[]) => void): void
 	getDrives(callback: (error: any, result: DriveInfo[]) => void): void
 	getFileVersion(path: string, callback: (error: any, result: string) => void): void
+	getExifDate(path: string, callback: (error: any, result: Date) => void): void
 }
 

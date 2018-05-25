@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "IconExtractor.h"
 #include "FileSystem.h"
+#include "ExifReader.h"
 #include "Worker.h"
 #include "utf8.h"
 using namespace std;
@@ -105,6 +106,22 @@ NAN_METHOD(GetFileVersion) {
 	));
 }
 
+NAN_METHOD(GetExifDate) {
+	Utf8String val(To<String>(info[0]).ToLocalChecked());
+	auto path = Utf8Decode(*val);
+
+	auto callback = new Callback(info[1].As<Function>());
+	auto time = new uint64_t;
+	AsyncQueueWorker(new Worker(callback,
+		[path, time]()-> void { *time = GetExifDate(path); },
+		[time](Nan::Callback* callback)-> void {
+		Local<Value> argv[] = { Nan::Null(), New<Date>(static_cast<double>(*time)).ToLocalChecked() };
+		delete time;
+		Call(*callback, 2, argv).ToLocalChecked();
+	}
+	));
+}
+
 //info.GetReturnValue().Set(Nan::);
 
 NAN_MODULE_INIT(init) {
@@ -112,6 +129,7 @@ NAN_MODULE_INIT(init) {
 	Nan::Set(target, New<String>("readDirectory").ToLocalChecked(), GetFunction(New<FunctionTemplate>(ReadDirectory)).ToLocalChecked());
 	Nan::Set(target, New<String>("getDrives").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetDrives)).ToLocalChecked());
 	Nan::Set(target, New<String>("getFileVersion").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetFileVersion)).ToLocalChecked());
+	Nan::Set(target, New<String>("getExifDate").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetExifDate)).ToLocalChecked());
 }
 
 NODE_MODULE(addon, init)
