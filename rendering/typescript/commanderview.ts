@@ -96,6 +96,7 @@ class CommanderView {
 
                         addon.getExifDate("A:\\Bilder\\2018\\Canon\\IMG_9791.JPG", (err, res) => {
                             console.log(res)
+                            console.log(new Date())
                         })
 
 

@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <map>
+#include <ctime>
 #include <string>
 #include "ExifReader.h"
 #include "Helpers.h"
@@ -251,18 +252,17 @@ uint64_t GetExifDate(const wstring& path) {
 	part = what + 17;
 	part[2] = 0;
 	auto second = atoi(part);
-	SYSTEMTIME st{ 0 };
-	st.wYear = year;
-	st.wMonth = month;
-	st.wDay = day;
-	st.wHour = hour;
-	st.wMinute = minute;
-	st.wSecond = second;
-	FILETIME ft;
-	SystemTimeToFileTime(&st, &ft);
-	FILETIME utc;
-	LocalFileTimeToFileTime(&ft, &utc);
-	auto result = ConvertWindowsTimeToUnixTime(utc);
 	delete what;
-	return result;
+	tm zeit{ 0 };
+	zeit.tm_hour = hour;
+	zeit.tm_min = minute;
+	zeit.tm_sec = second;
+	zeit.tm_year = year - 1900;
+	zeit.tm_mon = month - 1;
+	zeit.tm_mday = day;
+	time_t zeit_t = mktime(&zeit);
+	auto ltc = localtime(&zeit_t);
+	zeit_t = mktime(ltc);
+	delete ltc;
+	return (long long)zeit_t * 1000;
 }
