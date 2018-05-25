@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron"
 import * as Path from 'path'
-import { CommanderView } from './CommanderView.js'
+import { CommanderView } from './commanderview.js'
 import { createGrid } from './grid.js'
 import { Item } from './item.js'
 import { setShowHidden } from './globalsettings'

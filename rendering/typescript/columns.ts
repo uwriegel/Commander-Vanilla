@@ -50,6 +50,7 @@ export class Columns {
         })
 
         const thead = this.tableView.getElementsByTagName("thead")[0]
+        thead.innerHTML = ""
         const trh = document.createElement("tr")
         trh.classList.add("columns")
         thead.appendChild(trh)

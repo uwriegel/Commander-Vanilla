@@ -3,11 +3,11 @@ import { getShowHidden } from './globalsettings.js'
 import { BaseItems } from './BaseItems.js'
 import { EmptyItems } from './EmptyItems.js'
 import { Item } from './item.js'
-import * as addon from 'addon'
 import * as Path from 'path'
+import { getItems } from './itemsChooser'
 
 export class CommanderView {
-    constructor(parent: HTMLElement, id: string) {
+    constructor(parent: HTMLElement, private id: string) {
         this.commanderDirectory.classList.add('directory')
         parent.appendChild(this.commanderDirectory)        
         parent.appendChild(this.tableParent)
@@ -15,8 +15,12 @@ export class CommanderView {
         this.tableView = new TableView(this.tableParent, id)
         this.tableView.onSelectedCallback = (openWith: boolean, showProperties: boolean) => {
             const [items, index] = this.tableView.getItemsToSort()
-            if (items[index].isDirectory)
-                this.changePath(Path.join(this.path, items[index].name))
+            if (items[index].isDirectory) {
+                if (this.path.endsWith(":\\") && items[index].name == "..") 
+                    this.changePath("root")
+                else
+                    this.changePath(Path.join(this.path, items[index].name))
+            }
         }
         this.tableView.onCurrentItemChanged = i => {
             const [items, index] = this.tableView.getItemsToSort()
@@ -117,19 +121,21 @@ export class CommanderView {
         const recentPath = this.path
         this.path = path 
         this.commanderDirectory.value = this.path
-        const items = this.items.changePath(path) 
+
+        const items = getItems(this.items, path) 
         if (items) {
             this.items = items
-            this.tableView.setColumns(this.items.columns, "testColumns")
+            this.tableView.setColumns(this.items.columns, items.name + this.id)
             this.tableView.setItemsControl(this.items)
         }
+        this.items.changePath(path)
         await this.refresh(recentPath.startsWith(this.path) ? Path.basename(recentPath) : "")
     }
 
     async refresh(previousDirectory: string = "") {
         const [recentItems, currentIndex] = this.tableView.getItemsToSort()
         const currentItem = recentItems[currentIndex]
-        const result = await this.getDirectoryItems(this.items.basePath)
+        const result = await this.items.getItems()
         const items = getShowHidden() ? result : result.filter(item => !item.isHidden)
 
         let newItemIndex = 0
@@ -227,31 +233,6 @@ export class CommanderView {
     private checkRestrict(restrict: string) {
         this.restrictor.classList.remove('restrictorHide')
         this.restrictor.value = restrict
-    }
-
-    private async getDirectoryItems(path: string) {
-        return new Promise<Item[]>((res, rej) => {
-            addon.readDirectory(path, (err, result) => {
-                var items = result.map(item => {
-                    return {
-                        name: item.name,
-                        isDirectory: item.isDirectory,
-                        isSelected: false,
-                        isHidden: item.isHidden,
-                        dateTime: item.time,
-                        fileSize: item.size    
-                     }
-                }) as Item[]
-                var directories = ([{
-                    name: "..",
-                    isDirectory: true,
-                    isSelected: false,
-                    isHidden: false
-                }] as Item[]).concat(items.filter(item => item.isDirectory))
-                var files = items.filter(item => !item.isDirectory)
-                res(directories.concat(files))
-            })
-        })
     }
 
     /**

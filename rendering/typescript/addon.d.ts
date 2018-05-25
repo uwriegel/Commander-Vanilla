@@ -14,8 +14,6 @@ interface DriveInfo {
 	isReady: boolean
 }
 
-
-
 declare module 'addon' {
     function getIcon(extension: string, callback: (error: any, result: Buffer) => void): void
     function readDirectory(path: string, callback: (error: any, result: FileItem[]) => void): void

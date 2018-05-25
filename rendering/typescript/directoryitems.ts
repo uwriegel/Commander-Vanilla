@@ -1,13 +1,35 @@
 import { BaseItems } from './baseitems.js'
 import { DirectoryItem } from './DirectoryItem.js'
+import { Item } from './item.js'
 import * as FileHelper from './filehelper.js'
+import * as addon from 'addon'
 
 export class DirectoryItems extends BaseItems {
     constructor(basePath: string) { super(basePath) }
 
-    changePath(path: string) : BaseItems | null {
-        this.basePath = path
-        return null
+    async getItems() {
+        return new Promise<Item[]>((res, rej) => {
+            addon.readDirectory(this.basePath, (err, result) => {
+                var items = result.map(item => {
+                    return {
+                        name: item.name,
+                        isDirectory: item.isDirectory,
+                        isSelected: false,
+                        isHidden: item.isHidden,
+                        dateTime: item.time,
+                        fileSize: item.size    
+                     }
+                }) as Item[]
+                var directories = ([{
+                    name: "..",
+                    isDirectory: true,
+                    isSelected: false,
+                    isHidden: false
+                }] as Item[]).concat(items.filter(item => item.isDirectory))
+                var files = items.filter(item => !item.isDirectory)
+                res(directories.concat(files))
+            })
+        })
     }
 
     appendColumns(row: HTMLTableRowElement, item: DirectoryItem) {
@@ -64,6 +86,8 @@ export class DirectoryItems extends BaseItems {
         { name: "Größe", onSort: (ascending: boolean) => this.onSizeSort(ascending) },
         { name: "Version", onSort: (ascending: boolean) => this.onVersionSort(ascending) },
     ];
+
+    name = "DirectoryItems"
 
     private onNameSort(ascending: boolean) {
         return this.onSort((a, b) => a.name.localeCompare(b.name), ascending)

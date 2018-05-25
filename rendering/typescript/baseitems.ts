@@ -6,7 +6,11 @@ import { ISortable } from './ISortable'
 export abstract class BaseItems implements Items {
     constructor(public basePath: string) { }
 
-    abstract changePath(path: string) : BaseItems | null 
+    changePath(path: string) {
+        this.basePath = path
+    }
+
+    abstract async getItems(): Promise<Item[]>
 
     createItem(item?: Item) {
         const row = document.createElement("tr")
@@ -93,6 +97,7 @@ export abstract class BaseItems implements Items {
 
 
     abstract columns: IColumn[]
+    abstract name: string
     protected abstract appendColumns(row: HTMLTableRowElement, item: any): void
     protected sortableControl?: ISortable 
 
