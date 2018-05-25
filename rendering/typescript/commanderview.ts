@@ -93,13 +93,6 @@ class CommanderView {
                     //     Connection.processItem(FileHelper.pathCombine(this.itemsModel.CurrentDirectory, this.commanderDirectory.value), true)
                     // else
                     //{
-
-                        addon.getExifDate("A:\\Bilder\\2018\\Canon\\IMG_9791.JPG", (err, res) => {
-                            console.log(res)
-                            console.log(new Date())
-                        })
-
-
                         this.changePath(this.commanderDirectory.value)
                         this.tableView.focus()
                     //}

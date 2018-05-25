@@ -7,7 +7,7 @@ interface Item {
 
 interface DirectoryItem extends Item {
     dateTime: Date
-    exifDateTime?: string
+    exifDateTime?: Date | null
     updated?: string
     fileSize: number
     version?: string

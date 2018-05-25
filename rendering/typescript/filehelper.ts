@@ -57,13 +57,22 @@ class FileHelper {
 
     static async getFileVersion(path: string) {
         return new Promise<string>((res, rej) => {
-            if (path.endsWith(".dll") || path.endsWith(".exe")) 
+            if (path.toLocaleLowerCase().endsWith(".dll") || path.toLocaleLowerCase().endsWith(".exe")) 
                 addon.getFileVersion(path, ((err, info) => res(info)))
             else
                 res("")
         })    
     }
         
+    static async getExifDate(path: string) {
+        return new Promise<Date>((res, rej) => {
+            if (path.toLowerCase().endsWith(".jpg"))
+                addon.getExifDate(path, ((err, info) => res(info)))
+            else
+                res(undefined)
+        })    
+    }
+
     private static readonly dateFormat = Intl.DateTimeFormat("de-DE", {
         year: "numeric",
         month: "2-digit",

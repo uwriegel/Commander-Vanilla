@@ -229,7 +229,7 @@ private:
 	map<uint16_t, int> catalogue;
 	DWORD tiffHeaderStart{ 0 };
 };
-
+// TODO: Chrash in folder tina
 uint64_t GetExifDate(const wstring& path) {
 	ExifReader exif(path.c_str());
 	if (!exif.HasExif())
@@ -263,6 +263,5 @@ uint64_t GetExifDate(const wstring& path) {
 	time_t zeit_t = mktime(&zeit);
 	auto ltc = localtime(&zeit_t);
 	zeit_t = mktime(ltc);
-	delete ltc;
 	return (long long)zeit_t * 1000;
 }

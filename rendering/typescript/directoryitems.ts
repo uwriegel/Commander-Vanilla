@@ -47,13 +47,25 @@ class DirectoryItems extends BaseItems {
         row.appendChild(child)
 
         child = this.textTemplate.cloneNode(true) as HTMLElement
-        text = child.getElementsByClassName("it-text")[0] as HTMLElement
+        const exifText = child.getElementsByClassName("it-text")[0] as HTMLElement
+        if (item.exifDateTime == undefined) {
+            const inBackground = async () => {
+                item.exifDateTime = await FileHelper.getExifDate(this.basePath + "\\" + item.name)
+                if (item.exifDateTime) {
+                    exifText.innerText = FileHelper.formatDate(item.exifDateTime)
+                    exifText.classList.add("exif")
+                }
+                else
+                    item.exifDateTime = null
+            }
+            inBackground()
+        }
         if (item.exifDateTime) {
-            //text.innerText = FileHelper.formatDate(item.exifDateTime)
-            text.classList.add("exif")
+            exifText.innerText = FileHelper.formatDate(item.exifDateTime)
+            exifText.classList.add("exif")
         }
         else if (item.dateTime)
-             text.innerText = FileHelper.formatDate(item.dateTime)
+            exifText.innerText = FileHelper.formatDate(item.dateTime)
         row.appendChild(child)
 
         child = this.sizeTemplate.cloneNode(true) as HTMLElement
@@ -63,9 +75,12 @@ class DirectoryItems extends BaseItems {
 
         child = this.textTemplate.cloneNode(true) as HTMLElement
         if (item.version == undefined) {
-            item.version = await FileHelper.getFileVersion(this.basePath + "\\" + item.name)
-            text = child.getElementsByClassName("it-text")[0] as HTMLElement
-            text.innerText = item.version
+            const inBackground = async () => {
+                item.version = await FileHelper.getFileVersion(this.basePath + "\\" + item.name)
+                text = child.getElementsByClassName("it-text")[0] as HTMLElement
+                text.innerText = item.version
+            }
+            inBackground()
         }
         else if (item.version != "") {
             text = child.getElementsByClassName("it-text")[0] as HTMLElement
