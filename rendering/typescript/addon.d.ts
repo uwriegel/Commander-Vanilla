@@ -24,5 +24,6 @@ interface Addon {
     getIcon(extension: string, callback: (error: any, result: Buffer) => void): void
     readDirectory(path: string, callback: (error: any, result: FileItem[]) => void): void
 	getDrives(callback: (error: any, result: DriveInfo[]) => void): void
+	getFileVersion(path: string, callback: (error: any, result: string) => void): void
 }
 

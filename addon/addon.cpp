@@ -63,9 +63,9 @@ NAN_METHOD(ReadDirectory) {
 
 NAN_METHOD(GetDrives) {
 	auto callback = new Callback(info[0].As<Function>());
-	 auto driveInfos = new vector<DriveInfo>;
-	 AsyncQueueWorker(new Worker(callback,
-	 	[driveInfos]()-> void { GetDriveInfo(*driveInfos); },
+	auto driveInfos = new vector<DriveInfo>;
+	AsyncQueueWorker(new Worker(callback,
+		[driveInfos]()-> void { GetDriveInfo(*driveInfos); },
 	 	[driveInfos](Nan::Callback* callback)-> void {
 	 		Local<Array> resultList = New<Array>(driveInfos->size());
 	 		int i{ 0 };
@@ -89,13 +89,29 @@ NAN_METHOD(GetDrives) {
 	));
 }
 
+NAN_METHOD(GetFileVersion) {
+	Utf8String val(To<String>(info[0]).ToLocalChecked());
+	auto path = Utf8Decode(*val);
 
-//info.GetReturnValue().Set(Nan::New<String>(u8.c_str()).ToLocalChecked());
+	auto callback = new Callback(info[1].As<Function>());
+	auto versionInfo = new string;
+	AsyncQueueWorker(new Worker(callback,
+		[path, versionInfo]()-> void { GetFileVersion(path, *versionInfo); },
+		[versionInfo](Nan::Callback* callback)-> void {
+			Local<Value> argv[] = { Nan::Null(), New<String>(versionInfo->c_str()).ToLocalChecked() };
+			delete versionInfo;
+			Call(*callback, 2, argv).ToLocalChecked();
+		}
+	));
+}
+
+//info.GetReturnValue().Set(Nan::);
 
 NAN_MODULE_INIT(init) {
 	Nan::Set(target, New<String>("getIcon").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetIcon)).ToLocalChecked());
 	Nan::Set(target, New<String>("readDirectory").ToLocalChecked(), GetFunction(New<FunctionTemplate>(ReadDirectory)).ToLocalChecked());
 	Nan::Set(target, New<String>("getDrives").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetDrives)).ToLocalChecked());
+	Nan::Set(target, New<String>("getFileVersion").ToLocalChecked(), GetFunction(New<FunctionTemplate>(GetFileVersion)).ToLocalChecked());
 }
 
 NODE_MODULE(addon, init)

@@ -1,9 +1,26 @@
 #include <Windows.h>
 #include <string>
+#include <sstream>
 #include <vector>
 #include "FileSystem.h"
 #include "utf8.h"
 using namespace std;
+
+using GetFileVersionInfoFunction = BOOL(__stdcall*)(const wchar_t* filename, DWORD nill, DWORD length, void* data);
+using VerQueryValueFunction = BOOL(__stdcall*)(void* block, const wchar_t* sub_block, void** buffer, UINT* length);
+
+GetFileVersionInfoFunction CreateGetFileVersionInfo() {
+	auto module = LoadLibraryW(L"Api-ms-win-core-version-l1-1-0.dll");
+	return reinterpret_cast<GetFileVersionInfoFunction>(GetProcAddress(module, "GetFileVersionInfoW"));
+}
+
+VerQueryValueFunction CreateVerQueryValue() {
+	auto module = LoadLibraryW(L"Api-ms-win-core-version-l1-1-0.dll");
+	return reinterpret_cast<VerQueryValueFunction>(GetProcAddress(module, "VerQueryValueW"));
+}
+
+static GetFileVersionInfoFunction GetRawFileVersion{ CreateGetFileVersionInfo() };
+static VerQueryValueFunction VerRawQueryValue{ CreateVerQueryValue() };
 
 uint64_t convertWindowsTimeToUnixTime(const FILETIME& ft) {
 	ULARGE_INTEGER ull;
@@ -55,4 +72,23 @@ void GetDriveInfo(vector<DriveInfo>& results) {
 			results.push_back(di);
 		}
 	}
+}
+
+void GetFileVersion(const wstring& path, string& info) {
+	char buffer[1000];
+	if (!GetRawFileVersion(path.c_str(), 0, sizeof(buffer), buffer)) 
+		return; 
+
+	VS_FIXEDFILEINFO *fixedFileInfo{ nullptr };
+	uint32_t len{ 0 };
+	VerRawQueryValue(buffer, L"\\", reinterpret_cast<void**>(&fixedFileInfo), &len);
+
+	int file_major = HIWORD(fixedFileInfo->dwFileVersionMS);
+	int file_minor = LOWORD(fixedFileInfo->dwFileVersionMS);
+	int file_build = HIWORD(fixedFileInfo->dwFileVersionLS);
+	int file_private = LOWORD(fixedFileInfo->dwFileVersionLS);
+
+	stringstream result;
+	result << file_major << "." << file_minor << "." << file_private << "." << file_build;
+	info = move(result.str());
 }
