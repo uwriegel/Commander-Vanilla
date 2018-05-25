@@ -1,4 +1,3 @@
-import { Columns } from '../columns.js'
 
 const tableView = document.getElementById("table")!
 const columns = new Columns(tableView)

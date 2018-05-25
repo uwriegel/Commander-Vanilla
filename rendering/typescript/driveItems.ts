@@ -1,8 +1,4 @@
-import { Item } from './item.js'
-import { BaseItems } from "./baseitems"
-import * as addon from 'addon'
-
-export class DriveItems extends BaseItems {
+class DriveItems extends BaseItems {
     constructor() { super("")}
 
     async getItems() {

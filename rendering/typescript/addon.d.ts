@@ -20,3 +20,9 @@ declare module 'addon' {
 	function getDrives(callback: (error: any, result: DriveInfo[]) => void): void
 }
 
+interface Addon {
+    getIcon(extension: string, callback: (error: any, result: Buffer) => void): void
+    readDirectory(path: string, callback: (error: any, result: FileItem[]) => void): void
+	getDrives(callback: (error: any, result: DriveInfo[]) => void): void
+}
+

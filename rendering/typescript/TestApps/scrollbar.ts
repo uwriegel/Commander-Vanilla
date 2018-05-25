@@ -1,5 +1,3 @@
-import { Scrollbar } from '../scrollbar.js'
-
 let startPosition = 0
 
 const list = document.getElementById("list") as HTMLUListElement

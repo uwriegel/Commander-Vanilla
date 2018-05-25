@@ -1,10 +1,5 @@
-import { BaseItems } from './baseitems.js'
-import { DirectoryItem } from './DirectoryItem.js'
-import { Item } from './item.js'
-import * as FileHelper from './filehelper.js'
-import * as addon from 'addon'
 
-export class DirectoryItems extends BaseItems {
+class DirectoryItems extends BaseItems {
     constructor(basePath: string) { super(basePath) }
 
     async getItems() {

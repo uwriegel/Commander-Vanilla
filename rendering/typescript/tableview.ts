@@ -1,11 +1,4 @@
-import { Item } from './Item'
-import { Scrollbar } from './scrollbar.js'
-import { ISortable } from './ISortable'
-import { IColumn, Columns } from './columns.js'
-import { BaseItems } from './baseitems.js'
-import { EmptyItems } from './EmptyItems.js';
-
-export class TableView implements ISortable {
+class TableView implements ISortable {
 
     /**
     * Listview mit mehreren Spalten

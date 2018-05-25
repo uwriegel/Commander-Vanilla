@@ -1,9 +1,5 @@
-import { Item } from './item.js'
-import { Items } from './items.js'
-import { IColumn } from './columns.js'
-import { ISortable } from './ISortable'
 
-export abstract class BaseItems implements Items {
+abstract class BaseItems implements Items {
     constructor(public basePath: string) { }
 
     changePath(path: string) {

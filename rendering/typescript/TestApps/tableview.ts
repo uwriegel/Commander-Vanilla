@@ -1,7 +1,3 @@
-import { Item } from '../Item.js'
-import { TableView } from '../tableView.js'
-import { DirectoryItems } from '../DirectoryItems.js'
-import * as addon from 'addon'
 
 async function fill() {
     const tableViewParent = document.getElementById("container")!

@@ -1,12 +1,5 @@
-import { TableView } from './tableView.js'
-import { getShowHidden } from './globalsettings.js'
-import { BaseItems } from './BaseItems.js'
-import { EmptyItems } from './EmptyItems.js'
-import { Item } from './item.js'
-import * as Path from 'path'
-import { getItems } from './itemsChooser'
 
-export class CommanderView {
+class CommanderView {
     constructor(parent: HTMLElement, private id: string) {
         this.commanderDirectory.classList.add('directory')
         parent.appendChild(this.commanderDirectory)        
@@ -122,7 +115,7 @@ export class CommanderView {
         this.path = path 
         this.commanderDirectory.value = this.path
 
-        const items = getItems(this.items, path) 
+        const items = ItemsChooser.get(this.items, path) 
         if (items) {
             this.items = items
             this.tableView.setColumns(this.items.columns, items.name + this.id)
@@ -136,7 +129,7 @@ export class CommanderView {
         const [recentItems, currentIndex] = this.tableView.getItemsToSort()
         const currentItem = recentItems[currentIndex]
         const result = await this.items.getItems()
-        const items = getShowHidden() ? result : result.filter(item => !item.isHidden)
+        const items = GlobalSettings.showHidden ? result : result.filter(item => !item.isHidden)
 
         let newItemIndex = 0
         if (currentItem) {

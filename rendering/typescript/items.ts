@@ -1,6 +1,4 @@
-import { IColumn } from './columns.js'
-
-export interface Items {
+interface Items {
     createItem(item: any): HTMLTableRowElement
     columns: IColumn[]
 }

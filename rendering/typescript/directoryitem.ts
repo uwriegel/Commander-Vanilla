@@ -1,6 +1,4 @@
-import { Item } from './Item'
-
-export interface DirectoryItem extends Item {
+interface DirectoryItem extends Item {
     dateTime: Date
     exifDateTime?: string
     updated?: string
@@ -8,13 +6,13 @@ export interface DirectoryItem extends Item {
     version?: string
 }
 
-export interface UpdateItem {
+interface UpdateItem {
     index: number
     version: string
     dateTime: string
 }
 
-export interface Update {
+interface Update {
     id: number
     index: number
     updateItems: UpdateItem[]

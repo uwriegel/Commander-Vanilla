@@ -1,4 +1,4 @@
-export interface IColumn {
+interface IColumn {
     name: string
     onSort?: (ascending: boolean)=>void
 }
@@ -6,7 +6,7 @@ export interface IColumn {
 /**
  * Manages the tableview's columns
  */
-export class Columns {
+class Columns {
     constructor(private readonly tableView: HTMLElement) {
         const td = document.createElement("td")
         td.classList.add("it-name")

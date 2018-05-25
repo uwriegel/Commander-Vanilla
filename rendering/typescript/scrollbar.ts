@@ -4,7 +4,7 @@
  * The scrollable content is overlayed by scrollbar on the right side. Scrollable content has to be positioned absolute
  * The complete control has to be positioned in a wrapper with 'Position' set to 'relative'
  */
-export class Scrollbar {
+class Scrollbar {
     /**
      * Constructs an instace of Scrollbar
      * 
