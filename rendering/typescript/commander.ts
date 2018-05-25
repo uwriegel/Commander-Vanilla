@@ -2,9 +2,7 @@ const {ipcRenderer} = require('electron')
 const Path = require('path')
 const addon: Addon = require('addon')
 
-// TODO: Version
 // TODO: Exif
-// TODO: exe-icons
 // TODO: Drive items type (drive, usb network cd)
 // TODO: preselect theme in menue
 // TODO: select theme before displaying main window

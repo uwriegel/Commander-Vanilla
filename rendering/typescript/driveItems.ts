@@ -35,10 +35,8 @@ class DriveItems extends BaseItems {
         row.appendChild(child)
 
         child = this.textTemplate.cloneNode(true) as HTMLElement
-        if (!item.isDirectory) {
-            text = child.getElementsByClassName("it-text")[0] as HTMLElement
-            text.innerText = item.label
-        }
+        text = child.getElementsByClassName("it-text")[0] as HTMLElement
+        text.innerText = item.label
         row.appendChild(child)
 
         child = this.sizeTemplate.cloneNode(true) as HTMLElement

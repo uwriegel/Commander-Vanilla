@@ -27,17 +27,14 @@ class DirectoryItems extends BaseItems {
         })
     }
 
-    appendColumns(row: HTMLTableRowElement, item: DirectoryItem) {
-        // TODO: in items requestid, die erhöht wird. asynchron von jedem nicht gefüllten item hier anstoßen, die fehlenden Daten zu füllen, requestid überprüfen
-        // TODO: addon.getFileVersion("c:\\windows\\splwow64.exe", (rej, res) => console.log(res)) setzen in items-Array, wenn undefined
-
+    async appendColumns(row: HTMLTableRowElement, item: DirectoryItem) {
         let child = this.nameTemplate.cloneNode(true) as HTMLElement
         const img = child.getElementsByClassName("it-image")[0] as HTMLImageElement
         const ext = FileHelper.getExtension(item.name)
         if (item.isDirectory) 
             img.src = "assets/images/folder.png"
         else
-            img.src = `icon://${(ext == ".exe" ? this.basePath + item.name : ext)}`
+            img.src = `icon://${(ext == ".exe" ? this.basePath + "\\" + item.name : ext)}`
         let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
         text.innerText = item.isDirectory ? item.name : FileHelper.getNameOnly(item.name)
         row.appendChild(child)
@@ -65,15 +62,19 @@ class DirectoryItems extends BaseItems {
         row.appendChild(child)
 
         child = this.textTemplate.cloneNode(true) as HTMLElement
-        if (item.version) {
+        if (item.version == undefined) {
+            item.version = await FileHelper.getFileVersion(this.basePath + "\\" + item.name)
             text = child.getElementsByClassName("it-text")[0] as HTMLElement
             text.innerText = item.version
         }
+        else if (item.version != "") {
+            text = child.getElementsByClassName("it-text")[0] as HTMLElement
+            text.innerText = item.version
+        }
+        row.appendChild(child)
 
         if (item.isHidden)
             row.classList.add("it-hidden")
-
-        row.appendChild(child)
     }
 
     columns = [

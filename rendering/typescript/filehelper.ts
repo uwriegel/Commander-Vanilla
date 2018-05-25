@@ -54,6 +54,15 @@ class FileHelper {
             else return -1
         }
     }
+
+    static async getFileVersion(path: string) {
+        return new Promise<string>((res, rej) => {
+            if (path.endsWith(".dll") || path.endsWith(".exe")) 
+                addon.getFileVersion(path, ((err, info) => res(info)))
+            else
+                res("")
+        })    
+    }
         
     private static readonly dateFormat = Intl.DateTimeFormat("de-DE", {
         year: "numeric",
