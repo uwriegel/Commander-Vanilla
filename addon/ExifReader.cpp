@@ -141,6 +141,8 @@ private:
 
 	uint32_t GetTagInt(uint16_t tagId) {
 		auto tagType = GetTagType(tagId);
+		if (tagType == 0)
+			return 0;
 		auto numberOfComponents = Read4Bytes();
 		return Read4Bytes();
 	}
@@ -229,7 +231,7 @@ private:
 	map<uint16_t, int> catalogue;
 	DWORD tiffHeaderStart{ 0 };
 };
-// TODO: Chrash in folder tina
+
 uint64_t GetExifDate(const wstring& path) {
 	ExifReader exif(path.c_str());
 	if (!exif.HasExif())
