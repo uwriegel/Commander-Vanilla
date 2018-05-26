@@ -32,6 +32,7 @@ class Viewer {
                 {
                     this.img.classList.add("hidden")
                     this.frame.classList.add("hidden")
+                    this.frame.src = ""
                     this.video.classList.remove("hidden")
                     if (this.video.src != item)
                     this.video.src = item
@@ -41,12 +42,14 @@ class Viewer {
                     this.img.classList.remove("hidden")
                     this.img.src = item
                     this.frame.classList.add("hidden")
+                    this.frame.src = ""
                     this.video.classList.add("hidden")
                     this.video.pause()
                 }
-                else if (itemcheck.endsWith(".pdf") || itemcheck.endsWith("cs") || itemcheck.endsWith("html") || itemcheck.endsWith("xml")
-                    || itemcheck.endsWith("java") || itemcheck.endsWith("xaml") || itemcheck.endsWith("java")
-                    || itemcheck.endsWith("js") || itemcheck.endsWith("css"))
+                else if (itemcheck.endsWith(".pdf"))
+                // else if (itemcheck.endsWith(".pdf") || itemcheck.endsWith("cs") || itemcheck.endsWith("html") || itemcheck.endsWith("xml")
+                //     || itemcheck.endsWith("java") || itemcheck.endsWith("xaml") || itemcheck.endsWith("java")
+                //     || itemcheck.endsWith("js") || itemcheck.endsWith("css"))
                 {
                     this.img.classList.add("hidden")
                     this.video.classList.add("hidden")
@@ -60,6 +63,7 @@ class Viewer {
                      this.video.classList.add("hidden")
                      this.video.pause()
                      this.frame.classList.add("hidden")
+                     this.frame.src = ""
                 }
             }
             else
@@ -68,6 +72,7 @@ class Viewer {
                 this.video.classList.add("hidden")
                 this.video.pause()
                 this.frame.classList.add("hidden")
+                this.frame.src = ""
             }
         }, 50)
     }
