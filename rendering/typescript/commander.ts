@@ -2,10 +2,10 @@ const {ipcRenderer} = require('electron')
 const Path = require('path')
 const addon: Addon = require('addon')
 
-// TODO: Exif
 // TODO: Drive items type (drive, usb network cd)
 // TODO: preselect theme in menue
 // TODO: select theme before displaying main window
+// TODO: Take footer's value for changePath
 class Commander {
     constructor() {
         this.setTheme(localStorage["theme"] || "blue")
@@ -16,7 +16,7 @@ class Commander {
         this.commanderViewLeft.changePath("c:\\windows\\system32")
         this.commanderViewRight.changePath("c:")
 
-        Grid.create(this.vgrip, this.grid, this.viewer, true, () => {
+        Grid.create(this.vgrip, this.grid, this.viewer.HtmlElement, true, () => {
             this.commanderViewLeft.onResize()
             this.commanderViewRight.onResize()
         })
@@ -29,11 +29,11 @@ class Commander {
         ipcRenderer.on("viewer", (_: any, on: boolean) => {
             if (on) {
                 this.vgrip.classList.remove("hidden")
-                this.viewer.classList.remove("hidden")
+                this.viewer.Hidden = false
             }
             else {
                 this.vgrip.classList.add("hidden")
-                this.viewer.classList.add("hidden")
+                this.viewer.Hidden = true
                 this.grid.style.flex = null
             }
             this.commanderViewLeft.onResize()
@@ -74,11 +74,10 @@ class Commander {
     private grid = document.getElementById("grid")!
     private vgrip = document.getElementById("vgrip")!
     private grip = document.getElementById("grip")!
-    private viewer = document.getElementById("viewer")!
     private leftView = document.getElementById("leftView")!
     private rightView = document.getElementById("rightView")!
     private footer = document.getElementById("footer")!
-    
+        
     private commanderViewLeft = new CommanderView(this.leftView, "leftView")
     private commanderViewRight = new CommanderView(this.rightView, "rightView")
     
@@ -86,11 +85,11 @@ class Commander {
         if (item) {
             const text = Path.join(path, item.name)
             this.footer.textContent = text
-            //viewer.selectionChanged(text)
+            this.viewer.selectionChanged(text)
         }
         else {
             this.footer.textContent = "Nichts selektiert"
-            //viewer.selectionChanged("")
+            this.viewer.selectionChanged("")
         }
     }
     
@@ -117,5 +116,6 @@ class Commander {
     }
     
     private focusedView = this.commanderViewLeft
+    private viewer = new Viewer()
 }
 new Commander()

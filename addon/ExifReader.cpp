@@ -31,6 +31,8 @@ public:
 	}
 	char* GetTagString(uint16_t tagId) {
 		auto tagType = GetTagType(tagId);
+		if (!tagType)
+			return nullptr;
 		auto numberOfComponents = Read4Bytes();
 		auto tagData = Read4Bytes();
 
@@ -237,6 +239,8 @@ uint64_t GetExifDate(const wstring& path) {
 	if (!exif.HasExif())
 		return 0;
 	auto what = exif.GetTagString(DateTimeOriginal);
+	if (!what)
+		return 0;
 	what[4] = 0;
 	auto year = atoi(what);
 	auto part = what + 5;
