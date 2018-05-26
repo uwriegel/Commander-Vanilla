@@ -8,6 +8,7 @@
 using namespace std;
 
 const int DateTimeOriginal = 0x9003;
+const int DateTime = 0x132;
 
 class ExifReader {
 public:
@@ -239,8 +240,11 @@ uint64_t GetExifDate(const wstring& path) {
 	if (!exif.HasExif())
 		return 0;
 	auto what = exif.GetTagString(DateTimeOriginal);
-	if (!what)
-		return 0;
+	if (!what) {
+		what = exif.GetTagString(DateTime);
+		if (!what)
+			return 0;
+	}
 	what[4] = 0;
 	auto year = atoi(what);
 	auto part = what + 5;
