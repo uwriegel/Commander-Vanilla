@@ -12,8 +12,8 @@ class Viewer {
     selectionChanged(item?: string) {
         if (this.viewer.classList.contains("hidden")) {
             if (this.lastFile) {
-                //this.video.src = null
-                //this.frame.src = null
+                this.video.src = ""
+                this.frame.src = ""
                 this.img.src = ""
                 this.lastFile = ""
             }
@@ -31,51 +31,51 @@ class Viewer {
                 if (itemcheck.endsWith(".mp4") || itemcheck.endsWith(".mkv") || itemcheck.endsWith(".mp3") || itemcheck.endsWith(".wav"))
                 {
                     this.img.classList.add("hidden")
-                    //frame.classList.add("displayNone")
-                    //video.classList.remove("displayNone")
-                    //if (video.src != itemCoded)
-                    //    video.src = itemCoded
+                    this.frame.classList.add("hidden")
+                    this.video.classList.remove("hidden")
+                    if (this.video.src != item)
+                    this.video.src = item
                 }
                 else if (itemcheck.endsWith(".jpg") || itemcheck.endsWith(".png") || itemcheck.endsWith(".ico"))
                 {
                     this.img.classList.remove("hidden")
                     this.img.src = item
-                    //frame.classList.add("hidden")
-                    //video.classList.add("hidden")
-                    //video.pause()
+                    this.frame.classList.add("hidden")
+                    this.video.classList.add("hidden")
+                    this.video.pause()
                 }
                 else if (itemcheck.endsWith(".pdf") || itemcheck.endsWith("cs") || itemcheck.endsWith("html") || itemcheck.endsWith("xml")
                     || itemcheck.endsWith("java") || itemcheck.endsWith("xaml") || itemcheck.endsWith("java")
                     || itemcheck.endsWith("js") || itemcheck.endsWith("css"))
                 {
                     this.img.classList.add("hidden")
-                    //this.video.classList.add("hidden")
-                    //this.video.pause()
-                    //this.frame.classList.remove("hidden")
-                    //this.frame.src = itemCoded
+                    this.video.classList.add("hidden")
+                    this.video.pause()
+                    this.frame.classList.remove("hidden")
+                    this.frame.src = item
                 }
                 else
                 {
                     this.img.classList.add("hidden")
-                    // this.video.classList.add("displayNone")
-                    // this.video.pause()
-                    // this.frame.classList.add("displayNone")
+                     this.video.classList.add("hidden")
+                     this.video.pause()
+                     this.frame.classList.add("hidden")
                 }
             }
             else
             {
                 this.img.classList.add("hidden")
-                // video.classList.add("displayNone")
-                // video.pause()
-                // frame.classList.add("displayNone")
+                this.video.classList.add("hidden")
+                this.video.pause()
+                this.frame.classList.add("hidden")
             }
         }, 50)
     }
 
     private readonly viewer = <HTMLElement>document.getElementById("viewer")
     private readonly img = <HTMLImageElement>document.getElementById("viewerImg")
-    //private readonly video = <HTMLVideoElement>document.getElementById("viewerVideo")
-    //private readonly frame = <HTMLIFrameElement>document.getElementById("viewerFrame")
+    private readonly video = <HTMLVideoElement>document.getElementById("viewerVideo")
+    private readonly frame = <HTMLIFrameElement>document.getElementById("viewerFrame")
     private lastFile? = ""
     private timer: NodeJS.Timer | null = null
 }
