@@ -31,8 +31,11 @@ class DirectoryItems extends BaseItems {
         let child = this.nameTemplate.cloneNode(true) as HTMLElement
         const img = child.getElementsByClassName("it-image")[0] as HTMLImageElement
         const ext = FileHelper.getExtension(item.name)
-        if (item.isDirectory) 
-            img.src = "assets/images/folder.png"
+        if (item.isDirectory) {
+            img.classList.add("svg")
+            img.classList.add("svg-icon")
+            SvgInjector.replace(img, this.folderIcon)
+        }
         else
             img.src = `icon://${(ext == ".exe" ? this.basePath + "\\" + item.name : ext)}`
         let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
@@ -131,4 +134,6 @@ class DirectoryItems extends BaseItems {
     private onVersionSort(ascending: boolean) {
         return this.onSort((a, b) => FileHelper.compareVersion((<DirectoryItem>a).version, (<DirectoryItem>b).version), ascending)
     }
+
+    private readonly folderIcon = SvgInjector.getIcon("assets/images/folder.svg")!
 }

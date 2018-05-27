@@ -17,6 +17,18 @@
     width: 16px;
 }
 
+.svg-icon {
+    width: 16px;
+    height:16px;
+}
+
+.svg-icon path {
+    fill: var(--color);
+}
+.it-selected .svg-icon path {
+    fill: var(--selected-color);
+}
+
 .it-size {
     padding-right: 10px;
     text-align: right;
