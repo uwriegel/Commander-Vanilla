@@ -3,12 +3,12 @@ const Path = require('path')
 const addon: Addon = require('addon')
 
 // TODO: Drive items type (drive, usb network cd)
-// TODO: preselect theme in menue
-// TODO: select theme before displaying main window
 // TODO: Take footer's value for changePath
 class Commander {
     constructor() {
-        this.setTheme(localStorage["theme"] || "blue")
+        const theme = location.hash.substr(1)
+        if (theme)
+            this.setTheme(theme)
 
         this.commanderViewLeft.setOnFocus(() => this.focusedView = this.commanderViewLeft)
         this.commanderViewRight.setOnFocus(() => this.focusedView = this.commanderViewRight)
@@ -49,8 +49,6 @@ class Commander {
     }
 
     private setTheme(theme: string) {
-        localStorage["theme"] = theme
-    
         let styleSheet = document.getElementById("dark")
         if (styleSheet)
             styleSheet.remove()

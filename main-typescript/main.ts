@@ -25,6 +25,8 @@ app.on('ready', () => {
 
     if (settings.get("isMaximized"))
         mainWindow.maximize()
+        
+    const theme = settings.get("theme", "blue") as string
 
     // und Laden der index.html der App.
     mainWindow.loadURL(url.format({
@@ -38,6 +40,7 @@ app.on('ready', () => {
         pathname: path.join(__dirname, '../rendering/commander.html'),
 
         protocol: 'file:',
+        hash: theme,
         slashes: true
     }))
 
@@ -131,17 +134,29 @@ app.on('ready', () => {
             {
                 label: '&Blaues Thema',
                 type: "radio",
-                click: () =>  mainWindow.webContents.send("setTheme", "blue")
+                checked: theme == "blue",
+                click: () => {
+                    mainWindow.webContents.send("setTheme", "blue")
+                    settings.set("theme", "blue")  
+                } 
             },
             {
                 label: '&Hellblaues Thema',
                 type: "radio",
-                click: () =>  mainWindow.webContents.send("setTheme", "lightblue")
+                checked: theme == "lightblue",
+                click: () => {
+                    mainWindow.webContents.send("setTheme", "lightblue")
+                    settings.set("theme", "lightblue")  
+                } 
             },
             {
                 label: '&Dunkles Thema',
                 type: "radio",
-                click: () =>  mainWindow.webContents.send("setTheme", "dark")
+                checked: theme == "dark",
+                click: () => {
+                    mainWindow.webContents.send("setTheme", "dark")
+                    settings.set("theme", "dark")  
+                } 
             },
             {
                 type: 'separator'
