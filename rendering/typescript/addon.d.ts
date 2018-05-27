@@ -10,7 +10,7 @@ interface DriveInfo {
 	name: string
 	label: string
 	size: number
-	type: number
+	type: DriveType
 	isReady: boolean
 }
 

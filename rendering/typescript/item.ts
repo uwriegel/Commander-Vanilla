@@ -16,6 +16,7 @@ interface DirectoryItem extends Item {
 interface RootItem extends Item {
     label: string
     fileSize: number
+    type: DriveType
 }
 
 interface UpdateItem {
