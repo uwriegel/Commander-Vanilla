@@ -2,7 +2,6 @@ const {ipcRenderer} = require('electron')
 const Path = require('path')
 const addon: Addon = require('addon')
 
-// TODO: Drive items type (drive, usb network cd)
 // TODO: Take footer's value for changePath
 class Commander {
     constructor() {

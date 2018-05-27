@@ -52,10 +52,15 @@ class DriveItems extends BaseItems {
                 SvgInjector.replace(img, DriveItems.cdIcon)
                 break;
             case DriveType.Removable:
-            img.classList.add("svg")
-            img.classList.add("svg-icon")
-            SvgInjector.replace(img, DriveItems.usbIcon)
-            break;
+                img.classList.add("svg")
+                img.classList.add("svg-icon")
+                SvgInjector.replace(img, DriveItems.usbIcon)
+                break;
+            case DriveType.Remote:
+                img.classList.add("svg")
+                img.classList.add("svg-icon")
+                SvgInjector.replace(img, DriveItems.networkIcon)
+                break;
         }
         
         let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
@@ -77,4 +82,5 @@ class DriveItems extends BaseItems {
     private static readonly driveIcon = SvgInjector.getIcon("assets/images/drive.svg")!
     private static readonly cdIcon = SvgInjector.getIcon("assets/images/cdrom.svg")!
     private static readonly usbIcon = SvgInjector.getIcon("assets/images/usb.svg")!
+    private static readonly networkIcon = SvgInjector.getIcon("assets/images/networkdrive.svg")!
 }
