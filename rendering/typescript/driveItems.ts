@@ -42,14 +42,20 @@ class DriveItems extends BaseItems {
         const img = child.getElementsByClassName("it-image")[0] as HTMLImageElement
         switch (item.type) {
             case DriveType.Fixed:
-                img.src = "assets/images/drive.png"
+                img.classList.add("svg")
+                img.classList.add("svg-icon")
+                SvgInjector.replace(img, DriveItems.driveIcon)
                 break;
             case DriveType.Rom:
-                img.src = "assets/images/folder.png"
+                img.classList.add("svg")
+                img.classList.add("svg-icon")
+                SvgInjector.replace(img, DriveItems.cdIcon)
                 break;
             case DriveType.Removable:
-                img.src = "assets/images/parentfolder.png"
-                break;
+            img.classList.add("svg")
+            img.classList.add("svg-icon")
+            SvgInjector.replace(img, DriveItems.usbIcon)
+            break;
         }
         
         let text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
@@ -67,4 +73,8 @@ class DriveItems extends BaseItems {
         text.innerText = FileHelper.formatFileSize(item.fileSize)
         row.appendChild(child)
     }
+
+    private static readonly driveIcon = SvgInjector.getIcon("assets/images/drive.svg")!
+    private static readonly cdIcon = SvgInjector.getIcon("assets/images/cdrom.svg")!
+    private static readonly usbIcon = SvgInjector.getIcon("assets/images/usb.svg")!
 }

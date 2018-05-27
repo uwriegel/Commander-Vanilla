@@ -34,7 +34,7 @@ class DirectoryItems extends BaseItems {
         if (item.isDirectory) {
             img.classList.add("svg")
             img.classList.add("svg-icon")
-            SvgInjector.replace(img, this.folderIcon)
+            SvgInjector.replace(img, DirectoryItems.folderIcon)
         }
         else
             img.src = `icon://${(ext == ".exe" ? this.basePath + "\\" + item.name : ext)}`
@@ -135,5 +135,5 @@ class DirectoryItems extends BaseItems {
         return this.onSort((a, b) => FileHelper.compareVersion((<DirectoryItem>a).version, (<DirectoryItem>b).version), ascending)
     }
 
-    private readonly folderIcon = SvgInjector.getIcon("assets/images/folder.svg")!
+    private static readonly folderIcon = SvgInjector.getIcon("assets/images/folder.svg")!
 }
