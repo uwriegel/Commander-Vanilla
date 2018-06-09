@@ -4,6 +4,7 @@ enum DialogResult {
     No
 }
 
+// TODO: add css to dialog.css
 class Dialog {
     constructor(text: string) {
         this.shader.classList.add("shader")
