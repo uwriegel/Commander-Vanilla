@@ -1,4 +1,4 @@
-var conflictItems = [{
+const conflictTestItems = [{
     name: "EineDatei.exe",
     isDirectory: false,
     isSelected: false,
@@ -38,5 +38,5 @@ var conflictItems = [{
     targetDateTime: new Date()
 }]
 
-const container = document.getElementById("container")!
-const conflictView = new ConflictView(container, conflictItems)
+const container = document.getElementsByClassName("conflictsDialog")[0]! as HTMLElement
+const conflictView = new ConflictView(container, conflictTestItems)

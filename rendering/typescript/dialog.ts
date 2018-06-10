@@ -107,9 +107,12 @@ class Dialog {
         this.dialog.insertBefore(p, this.dialog.lastChild)
     }
 
-    addConflictView() {
+    addConflictView(conflictItems: ConflictItem[]) {
+        const container = document.createElement("div")
+        container.classList.add("conflictContainer")
         this.dialog.classList.add("conflictsDialog")
-    //    conflicts = new ConflictView(this.dialog, operationCheckResult)
+        this.dialog.appendChild(container)
+        this.conflictView = new ConflictView(container, conflictItems)
     }
 
     async show() {
@@ -131,11 +134,11 @@ class Dialog {
             else
                 this.ok.focus()
 
-            // if (conflicts) {
+            if (this.conflictView) {
             //     conflicts.initialize()
             //     if (conflicts.notToOverride())
             //         this.no.focus()
-            // }
+            }
 
             setTimeout(() => {
                 if (this.shader)
@@ -244,8 +247,8 @@ class Dialog {
                 }
                 break
         }
-        // if (conflicts && conflicts.isTableView(evt.target))
-        //     return
+        // if (conflictView && conflictView.isTableView(evt.target))
+        //      return
         evt.preventDefault()
         evt.stopPropagation()
     }
@@ -267,10 +270,7 @@ class Dialog {
 
     private input: HTMLInputElement | undefined
     private checkBox: HTMLInputElement | undefined
-
-    /// <var name="conflicts" type="ConflictView">Die Liste der Konflikte beim Verschieben und Kopieren</var>
-    //var conflicts
-
+    private conflictView: ConflictView | undefined
     private resolveDialogResult: (result: DialogResult)=>void = res => {}
 }
 

@@ -94,6 +94,15 @@
     outline-offset: 1px;
 }
 
+.conflictContainer {
+    top: 50px;
+    bottom: 60px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    position: absolute;
+}
+
 .conflictTable {
     box-sizing: border-box;
     position: absolute;
