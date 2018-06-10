@@ -13,6 +13,14 @@ testOkCancel.onclick = async evt => {
     console.log(result)
 }
 
+const testYesNo = document.getElementById("testYesNo")!
+testYesNo.onclick = async evt => {
+    const dialog = new Dialog("Das ist der Ja/Nein-Dialog")
+    dialog.setYesNoCancel()
+    var result = await dialog.show()
+    console.log(result)
+}
+
 const testOkCancelCheck = document.getElementById("testOkCancelCheck")!
 testOkCancelCheck.onclick = async evt => {
     const dialog = new Dialog("Das ist der Dialog OK Cancel mit CheckBox")
@@ -23,12 +31,35 @@ testOkCancelCheck.onclick = async evt => {
         console.log(dialog.isChecked)
 }
 
-const testYesNoInput = document.getElementById("testYesNoInput")!
-testYesNoInput.onclick = async evt => {
-    const dialog = new Dialog("Das ist der Dialog OK Cancel mit CheckBox")
+const testOkCancekInput = document.getElementById("testOkCancekInput")!
+testOkCancekInput.onclick = async evt => {
+    const dialog = new Dialog("Das ist der Dialog Ja/Nein mit CheckBox")
     dialog.setOkCancel()
     dialog.setInput("Ein Input")
     var result = await dialog.show()
     if (result == DialogResult.OK)
-        console.log(dialog.isChecked)
+        console.log(dialog.textInput)
 }
+
+const testYesNoInputCheck = document.getElementById("testYesNoInputCheck")!
+testYesNoInputCheck.onclick = async evt => {
+    const dialog = new Dialog("Das ist der Dialog Ja/Nein mit CheckBox und Input")
+    dialog.setYesNoCancel()
+    dialog.setInput("Ein Input")
+    dialog.setCheckBox("Is das gecheckt?")
+    var result = await dialog.show()
+    console.log(result)
+    if (result == DialogResult.OK) {
+        console.log(dialog.isChecked)
+        console.log(dialog.textInput)
+    }
+}
+
+const conflict = document.getElementById("conflict")!
+conflict.onclick = async evt => {
+    const dialog = new Dialog("Das ist der Konflikte-Dialog")
+    dialog.setYesNoCancel()
+    var result = await dialog.show()
+    console.log(result)
+}
+

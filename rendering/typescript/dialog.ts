@@ -4,12 +4,11 @@ enum DialogResult {
     No
 }
 
-// TODO: style.height only via css-classes
-// TODO: all combinations
 // TODO: Conflictitems
 
 class Dialog {
     isChecked = false
+    textInput = ""
 
     constructor(text: string) {
         this.shader.classList.add("shader")
@@ -83,17 +82,14 @@ class Dialog {
         li.appendChild(this.cancel)
     }
 
-    setInput(text: string, selectionCount?: number) {
+    setInput(text: string) {
         const p = document.createElement('p')
         this.input = document.createElement('input')
         p.appendChild(this.input)
         this.input.type = "text"
         this.input.value = text
-        if (!selectionCount)
-            this.input.select()
-        else 
-            this.input.setSelectionRange(0, selectionCount)
-        this.dialog.style.height = "100px"
+        this.input.select()
+        this.dialog.classList.add("input")
         this.dialog.insertBefore(p, this.dialog.lastChild)
     }
 
@@ -107,14 +103,14 @@ class Dialog {
         const textNode = document.createTextNode(text)
         label.appendChild(textNode)
                
-        this.dialog.style.height = "130px"
+        this.dialog.classList.add("checkbox")
         this.dialog.insertBefore(p, this.dialog.lastChild)
     }
 
-    // addConflictView(operationCheckResult: OperationCheckResult) {
-    //     this.dialog.classList.add("conflictsDialog")
-    //     conflicts = new ConflictView(this.dialog, operationCheckResult)
-    // }
+    addConflictView() {
+        this.dialog.classList.add("conflictsDialog")
+    //    conflicts = new ConflictView(this.dialog, operationCheckResult)
+    }
 
     async show() {
         return new Promise<DialogResult>((resolve, reject) => {
@@ -149,14 +145,10 @@ class Dialog {
     }
 
     close() {
-        // if (this.input)
-        //     dialogInstance.text = this.input.value
-        // else
-        //     dialogInstance.text = null
+         if (this.input)
+             this.textInput = this.input.value
         if (this.checkBox) 
             this.isChecked = this.checkBox.checked
-        // else
-        //     dialogInstance.isChecked = null
 
         document.removeEventListener('keydown', this.keydown, true)
 

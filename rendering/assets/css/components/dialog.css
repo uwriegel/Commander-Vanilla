@@ -25,6 +25,18 @@
     background-color: white;
 }
 
+.dialog.input {
+    height: 100px;
+}
+
+.dialog.checkbox {
+    height: 90px;
+}
+
+.dialog.checkbox.input {
+    height: 130px;
+}
+
 .dialog > p > input {
     width: calc(100% - 8px);
 }
