@@ -131,10 +131,6 @@
     border-right-color: white;
 }
 
-.conflictTable th:first-child {
-    border-left-style: none;
-}
-
 .conflictTable tr:hover {
     background-color: #fffbdf;
 }

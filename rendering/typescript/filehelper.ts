@@ -51,7 +51,7 @@ class FileHelper {
                 return leftParts[2] - rightParts[2]
             else if (leftParts[3] != rightParts[3])
                 return leftParts[3] - rightParts[3]
-            else return -1
+            else return 0
         }
     }
 

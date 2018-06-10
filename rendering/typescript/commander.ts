@@ -1,3 +1,5 @@
+// TODO: verkleinern, nach unten scrollen, dann Fenster vergrößern => Scrollbar verschwindet, aber erstes Item nicht sichtbar!!
+
 const {ipcRenderer} = require('electron')
 const Path = require('path')
 const addon: Addon = require('addon')

@@ -1,6 +1,7 @@
 class ConflictView {
     constructor(parent: HTMLElement, conflictItems: ConflictItem[]) {
         parent.appendChild(this.tableParent)
+        parent.classList.add('conflictTable')
         this.tableParent.style.flexGrow = "1"
         this.tableView = new TableView(this.tableParent, "conflict")
 
