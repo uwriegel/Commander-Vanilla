@@ -36,7 +36,8 @@ app.on('ready', () => {
         //pathname: path.join(__dirname, '../rendering/iconview.html'),
         //pathname: path.join(__dirname, '../rendering/tableview.html'),
         //pathname: path.join(__dirname, '../rendering/grid.html'),
-        pathname: path.join(__dirname, '../rendering/dialog.html'),
+        //pathname: path.join(__dirname, '../rendering/dialog.html'),
+        pathname: path.join(__dirname, '../rendering/conflictview.html'),
 
         //pathname: path.join(__dirname, '../rendering/commander.html'),
 

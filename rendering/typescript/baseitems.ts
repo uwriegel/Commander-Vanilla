@@ -1,4 +1,3 @@
-
 abstract class BaseItems implements Items {
     constructor(public basePath: string) { }
 
@@ -33,11 +32,7 @@ abstract class BaseItems implements Items {
                 row.classList.remove("it-selected")
         }
         else {
-            const child = this.nameTemplate.cloneNode(true) as HTMLElement
-            const img = child.getElementsByClassName("it-image")[0] as HTMLElement
-            img.classList.add("it-measureimage")
-            const text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
-            text.innerText = " "
+            const child = this.getMeasureItem()
             row.appendChild(child)
         }
     }
@@ -60,6 +55,15 @@ abstract class BaseItems implements Items {
 
     setSortable(sortableControl: ISortable) {
         this.sortableControl = sortableControl
+    }
+
+    protected getMeasureItem() {
+        const child = this.nameTemplate.cloneNode(true) as HTMLElement
+        const img = child.getElementsByClassName("it-image")[0] as HTMLElement
+        img.classList.add("it-measureimage")
+        const text = child.getElementsByClassName("it-nameValue")[0] as HTMLElement
+        text.innerText = " "
+        return child
     }
 
     protected onSort(sort: (itemA: Item, itemB: Item) => number, ascending: boolean) {
@@ -91,6 +95,30 @@ abstract class BaseItems implements Items {
         this.sortableControl!.setSortedItems(sortedItems, newItemIndex)
     }
 
+    protected onNameSort(ascending: boolean) {
+        return this.onSort((a, b) => a.name.localeCompare(b.name), ascending)
+    }
+
+    protected onSizeSort(ascending: boolean) {
+        return this.onSort((a, b) => (<DirectoryItem>a).fileSize - (<DirectoryItem>b).fileSize, ascending)
+    }
+
+    protected onDateSort(ascending: boolean) {
+        return this.onSort((a, b) => {
+            var date1 = (<DirectoryItem>a).exifDateTime ? (<DirectoryItem>a).exifDateTime : (<DirectoryItem>a).dateTime
+            var date2 = (<DirectoryItem>b).exifDateTime ? (<DirectoryItem>b).exifDateTime : (<DirectoryItem>b).dateTime
+            var result = 0
+            if (date1! < date2!)
+                result = -1
+            else if (date1! > date2!)
+                result = 1
+            return result
+        }, ascending)
+    }
+
+    protected onVersionSort(ascending: boolean) {
+        return this.onSort((a, b) => FileHelper.compareVersion((<DirectoryItem>a).version, (<DirectoryItem>b).version), ascending)
+    }
 
     abstract columns: IColumn[]
     abstract name: string

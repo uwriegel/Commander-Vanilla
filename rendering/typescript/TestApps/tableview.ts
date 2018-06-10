@@ -26,17 +26,6 @@ async function fill() {
         })
     }
 
-    // const connection = new Connection(u => {
-    //     if (connection.getIndex() == u.index)
-    //         tableView.updateItems(items => u.updateItems.forEach((updateItem, index) => {
-    //             const di = items[updateItem.index] as DirectoryItem
-    //             di.version = updateItem.version
-    //             di.exifDateTime = updateItem.dateTime
-    //         }))   
-        
-    // })
-    // const result = await connection.getDirectoryItems(path)
-    //const result = await connection.getDirectoryItems("c:\\")
     var result = await getItems(path)
     tableView.setItems(result)
     tableView.focus()

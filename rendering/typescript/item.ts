@@ -19,14 +19,11 @@ interface RootItem extends Item {
     type: DriveType
 }
 
-interface UpdateItem {
-    index: number
-    version: string
-    dateTime: string
-}
-
-interface Update {
-    id: number
-    index: number
-    updateItems: UpdateItem[]
+interface ConflictItem extends Item {
+    sourceFileSize: number
+    targetFileSize: number
+    sourceVersion?: string
+    targetVersion?: string
+    sourceDateTime: Date
+    targetDateTime: Date
 }

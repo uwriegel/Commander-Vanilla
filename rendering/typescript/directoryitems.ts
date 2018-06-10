@@ -105,34 +105,8 @@ class DirectoryItems extends BaseItems {
 
     name = "DirectoryItems"
 
-    private onNameSort(ascending: boolean) {
-        return this.onSort((a, b) => a.name.localeCompare(b.name), ascending)
-    }
-
     private onExtSort(ascending: boolean) {
         return this.onSort((a, b) => FileHelper.getExtension(a.name).localeCompare(FileHelper.getExtension(b.name)), ascending)
-    }
-
-    private onDateSort(ascending: boolean) {
-        return this.onSort((a, b) => {
-            // var date1 = (<DirectoryItem>a).exifDateTime ? (<DirectoryItem>a).exifDateTime : (<DirectoryItem>a).dateTime
-            // var date2 = (<DirectoryItem>b).exifDateTime ? (<DirectoryItem>b).exifDateTime : (<DirectoryItem>b).dateTime
-            // return date1!.localeCompare(date2!)
-            var result = 0
-            if ((<DirectoryItem>a).dateTime < ((<DirectoryItem>b).dateTime!))
-                result = -1
-            else if ((<DirectoryItem>a).dateTime > ((<DirectoryItem>b).dateTime!))
-                result = 1
-            return result
-        }, ascending)
-    }
-
-    private onSizeSort(ascending: boolean) {
-        return this.onSort((a, b) => (<DirectoryItem>a).fileSize - (<DirectoryItem>b).fileSize, ascending)
-    }
-
-    private onVersionSort(ascending: boolean) {
-        return this.onSort((a, b) => FileHelper.compareVersion((<DirectoryItem>a).version, (<DirectoryItem>b).version), ascending)
     }
 
     private static readonly folderIcon = SvgInjector.getIcon("assets/images/folder.svg")!
