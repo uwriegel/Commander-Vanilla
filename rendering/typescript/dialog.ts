@@ -4,8 +4,13 @@ enum DialogResult {
     No
 }
 
-// TODO: add css to dialog.css
+// TODO: style.height only via css-classes
+// TODO: all combinations
+// TODO: Conflictitems
+
 class Dialog {
+    isChecked = false
+
     constructor(text: string) {
         this.shader.classList.add("shader")
         document.body.appendChild(this.shader)
@@ -20,7 +25,7 @@ class Dialog {
         this.ok.onclick = () => this.endDialog(DialogResult.OK)
         this.ok.onkeyup = evt => {
             if (evt.which == 32) 
-            this.endDialog(DialogResult.OK)
+                this.endDialog(DialogResult.OK)
         }
 
         const li = document.createElement('li')
@@ -30,9 +35,7 @@ class Dialog {
         document.addEventListener('keydown', this.keydown, true)
     }
 
-    setOkCancel(okFunction: (dialogResult: DialogResult)=>void) {
-        this.dialogResultFunction = okFunction
-
+    setOkCancel() {
         this.cancel = document.createElement('div')
         this.cancel.setAttribute("tabindex", "0")
         this.cancel.classList.add("dialogButton")
@@ -48,9 +51,7 @@ class Dialog {
         li.appendChild(this.cancel)
     }
 
-    setYesNoCancel(dialogResultFunction: (dialogResult: DialogResult)=>void) {
-        this.dialogResultFunction = dialogResultFunction
-
+    setYesNoCancel() {
         this.ok.textContent = "Ja"
 
         this.no = document.createElement('div')
@@ -115,33 +116,36 @@ class Dialog {
     //     conflicts = new ConflictView(this.dialog, operationCheckResult)
     // }
 
-    show() {
-        if (this.input)
-            this.focusableElements.push(this.input)
-        if (this.checkBox)
-        this.focusableElements.push(this.checkBox)
-        this.focusableElements.push(this.ok)
-        if (this.no)
-            this.focusableElements.push(this.no)
-        if (this.cancel)
-            this.focusableElements.push(this.cancel)
+    async show() {
+        return new Promise<DialogResult>((resolve, reject) => {
+            this.resolveDialogResult = resolve
+            this.focusableElements.push(this.ok)
+            if (this.input)
+                this.focusableElements.push(this.input)
+            if (this.checkBox)
+                this.focusableElements.push(this.checkBox)
+            if (this.no)
+                this.focusableElements.push(this.no)
+            if (this.cancel)
+                this.focusableElements.push(this.cancel)
 
-        document.body.appendChild(this.dialog)
-        if (this.input)
-        this.input.focus()
-        else
-            this.ok.focus()
+            document.body.appendChild(this.dialog)
+            if (this.input)
+                this.input.focus()
+            else
+                this.ok.focus()
 
-        // if (conflicts) {
-        //     conflicts.initialize()
-        //     if (conflicts.notToOverride())
-        //         this.no.focus()
-        // }
+            // if (conflicts) {
+            //     conflicts.initialize()
+            //     if (conflicts.notToOverride())
+            //         this.no.focus()
+            // }
 
-        setTimeout(() => {
-            if (this.shader)
-            this.shader.classList.add('shaderVisible')
-        }, 20)
+            setTimeout(() => {
+                if (this.shader)
+                this.shader.classList.add('shaderVisible')
+            }, 20)
+        })
     }
 
     close() {
@@ -149,8 +153,8 @@ class Dialog {
         //     dialogInstance.text = this.input.value
         // else
         //     dialogInstance.text = null
-        // if (this.checkBox) 
-        //     dialogInstance.isChecked = this.checkBox.checked
+        if (this.checkBox) 
+            this.isChecked = this.checkBox.checked
         // else
         //     dialogInstance.isChecked = null
 
@@ -256,10 +260,8 @@ class Dialog {
 
 
     private endDialog(dialogResult: DialogResult) {
-        var callFunction = dialogResult == DialogResult.Cancel ? null : this.dialogResultFunction
         this.close()
-        if (callFunction)
-            callFunction(dialogResult)
+        this.resolveDialogResult(dialogResult)
     }
 
     private readonly shader = document.createElement('div')
@@ -277,6 +279,6 @@ class Dialog {
     /// <var name="conflicts" type="ConflictView">Die Liste der Konflikte beim Verschieben und Kopieren</var>
     //var conflicts
 
-    private dialogResultFunction: ((dialogResult: DialogResult)=>void) | undefined
+    private resolveDialogResult: (result: DialogResult)=>void = res => {}
 }
 
