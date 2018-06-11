@@ -3,9 +3,8 @@ enum DialogResult {
     OK,
     No
 }
-// TODO: conflictview in focusalbelElements
-// TODO: Enter -> not activeElement but selected
-// TODO: no focus when conflicts
+
+// TODO: "no"focus when conflicts
 class Dialog {
     isChecked = false
     textInput = ""
@@ -186,7 +185,8 @@ class Dialog {
                     var indexToFocus = 0
 
                     this.focusableElements.forEach((item, index) => {
-                        if (item == document.activeElement || ()) {
+                        if (item == document.activeElement 
+                            || (index == 3 && this.conflictView && this.conflictView.isTableView(document.activeElement as HTMLElement))) {
                             if (evt.shiftKey) {
                                 indexToFocus = index - 1
                                 if (indexToFocus == -1)
@@ -199,6 +199,9 @@ class Dialog {
                         }
                     })
                     this.focusableElements[indexToFocus].focus()
+                    evt.preventDefault()
+                    evt.stopPropagation()
+                    return
                 }
                 break
             case 13: // Enter
