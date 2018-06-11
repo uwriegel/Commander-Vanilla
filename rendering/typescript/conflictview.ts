@@ -8,9 +8,17 @@ class ConflictView {
         const items = new ConflictItems()
         this.tableView.setColumns(items.columns, "conflict")
         this.tableView.setItemsControl(items)
-        this.tableView.setItems(conflictItems)
+        this.tableParent.onfocus = () => this.tableView.focus()
+        this.tableParent.tabIndex = 1
+
+        setTimeout(() => this.tableView.setItems(conflictItems), 100)
     }
 
-    private readonly tableParent = document.createElement('div')
+    isTableView(elementToCheck: HTMLElement) {
+        return this.tableParent.contains(elementToCheck)
+    }
+
+    readonly tableParent = document.createElement('div')
+
     private readonly tableView: TableView
 }

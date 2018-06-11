@@ -3,9 +3,9 @@ enum DialogResult {
     OK,
     No
 }
-
-// TODO: Conflictitems
-
+// TODO: conflictview in focusalbelElements
+// TODO: Enter -> not activeElement but selected
+// TODO: no focus when conflicts
 class Dialog {
     isChecked = false
     textInput = ""
@@ -119,15 +119,17 @@ class Dialog {
         return new Promise<DialogResult>((resolve, reject) => {
             this.resolveDialogResult = resolve
             this.focusableElements.push(this.ok)
-            if (this.input)
-                this.focusableElements.push(this.input)
-            if (this.checkBox)
-                this.focusableElements.push(this.checkBox)
             if (this.no)
                 this.focusableElements.push(this.no)
             if (this.cancel)
                 this.focusableElements.push(this.cancel)
-
+            if (this.input)
+                this.focusableElements.push(this.input)
+            if (this.checkBox)
+                this.focusableElements.push(this.checkBox)
+            if (this.conflictView)
+                this.focusableElements.push(this.conflictView.tableParent)
+            
             document.body.appendChild(this.dialog)
             if (this.input)
                 this.input.focus()
@@ -135,7 +137,6 @@ class Dialog {
                 this.ok.focus()
 
             if (this.conflictView) {
-            //     conflicts.initialize()
             //     if (conflicts.notToOverride())
             //         this.no.focus()
             }
@@ -185,7 +186,7 @@ class Dialog {
                     var indexToFocus = 0
 
                     this.focusableElements.forEach((item, index) => {
-                        if (item == document.activeElement) {
+                        if (item == document.activeElement || ()) {
                             if (evt.shiftKey) {
                                 indexToFocus = index - 1
                                 if (indexToFocus == -1)
@@ -247,8 +248,8 @@ class Dialog {
                 }
                 break
         }
-        // if (conflictView && conflictView.isTableView(evt.target))
-        //      return
+        if (this.conflictView && this.conflictView.isTableView(evt.target as HTMLElement))
+            return
         evt.preventDefault()
         evt.stopPropagation()
     }
