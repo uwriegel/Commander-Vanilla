@@ -1,6 +1,8 @@
 class ConflictItems extends BaseItems {
     constructor() { super("conflicts") }
 
+    shouldNotBeOverridden = false
+
     getItems(): Promise<Item[]> {
         throw new Error("Method not implemented.");
     }    
@@ -44,7 +46,7 @@ class ConflictItems extends BaseItems {
             sourceText.classList.add("conflictsNewer")
         else if (item.sourceDateTime < item.targetDateTime) {        
             targetText.classList.add("conflictsOlder")
-//            this.shouldNotBeOverridden = true;
+            this.shouldNotBeOverridden = true
         }
         else {
             sourceText.classList.add("conflictsEqual")
@@ -62,7 +64,7 @@ class ConflictItems extends BaseItems {
             sourceText.classList.add("conflictsNewer")
         else if (compareResult < 0) {
             targetText.classList.add("conflictsOlder")
-        //    this.shouldNotBeOverridden = true
+            this.shouldNotBeOverridden = true
         }
         else {
             sourceText.classList.add("conflictsEqual")

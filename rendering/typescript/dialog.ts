@@ -4,7 +4,6 @@ enum DialogResult {
     No
 }
 
-// TODO: "no"focus when conflicts
 class Dialog {
     isChecked = false
     textInput = ""
@@ -135,14 +134,13 @@ class Dialog {
             else
                 this.ok.focus()
 
-            if (this.conflictView) {
-            //     if (conflicts.notToOverride())
-            //         this.no.focus()
-            }
-
             setTimeout(() => {
                 if (this.shader)
                 this.shader.classList.add('shaderVisible')
+
+                if (this.conflictView && this.conflictView.shouldNotBeOverridden) 
+                    this.no!.focus()
+
             }, 20)
         })
     }

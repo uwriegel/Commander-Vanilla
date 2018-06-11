@@ -5,13 +5,17 @@ class ConflictView {
         this.tableParent.style.flexGrow = "1"
         this.tableView = new TableView(this.tableParent, "conflict")
 
-        const items = new ConflictItems()
-        this.tableView.setColumns(items.columns, "conflict")
-        this.tableView.setItemsControl(items)
+        this.conflictItems = new ConflictItems()
+        this.tableView.setColumns(this.conflictItems.columns, "conflict")
+        this.tableView.setItemsControl(this.conflictItems)
         this.tableParent.onfocus = () => this.tableView.focus()
         this.tableParent.tabIndex = 1
 
-        setTimeout(() => this.tableView.setItems(conflictItems), 100)
+        setTimeout(() => this.tableView.setItems(conflictItems), 10)
+    }
+
+    get shouldNotBeOverridden() {
+        return this.conflictItems.shouldNotBeOverridden
     }
 
     isTableView(elementToCheck: HTMLElement) {
@@ -21,4 +25,5 @@ class ConflictView {
     readonly tableParent = document.createElement('div')
 
     private readonly tableView: TableView
+    private readonly conflictItems: ConflictItems
 }
