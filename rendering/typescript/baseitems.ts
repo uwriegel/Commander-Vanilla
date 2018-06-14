@@ -57,6 +57,12 @@ abstract class BaseItems implements Items {
         this.sortableControl = sortableControl
     }
 
+    get canCreateFolder() {
+        return false
+    }
+
+    createFolder(name: string) {}
+
     protected getMeasureItem() {
         const child = this.nameTemplate.cloneNode(true) as HTMLElement
         const img = child.getElementsByClassName("it-image")[0] as HTMLElement

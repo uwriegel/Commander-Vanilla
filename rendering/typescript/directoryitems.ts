@@ -105,6 +105,14 @@ class DirectoryItems extends BaseItems {
 
     name = "DirectoryItems"
 
+    get canCreateFolder() {
+        return true
+    }
+
+    createFolder(name: string) {
+        alert(name)          
+    }
+
     private onExtSort(ascending: boolean) {
         return this.onSort((a, b) => FileHelper.getExtension(a.name).localeCompare(FileHelper.getExtension(b.name)), ascending)
     }

@@ -168,10 +168,19 @@ class CommanderView {
         this.tableView.resizeChecking()
     }
 
-    createFolder() {
-        const [items, index] = this.tableView.getItemsToSort()
-        const selected = items[index].name
-        alert(selected)
+    async createFolder() {
+        if (this.items.canCreateFolder) {
+            const [items, index] = this.tableView.getItemsToSort()
+            let selected = items[index].name
+            if (selected == "..")
+                selected = ""
+            const dialog = new Dialog("Möchtest Du hier einen Ordner anlegen?")
+            dialog.setOkCancel()
+            dialog.setInput(selected)
+            var result = await dialog.show()
+            if (result == DialogResult.OK)
+                this.items.createFolder(dialog.textInput)
+        }
     }
 
     private keysRestrict(e: KeyboardEvent) {
