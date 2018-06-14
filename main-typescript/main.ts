@@ -36,10 +36,10 @@ app.on('ready', () => {
         //pathname: path.join(__dirname, '../rendering/iconview.html'),
         //pathname: path.join(__dirname, '../rendering/tableview.html'),
         //pathname: path.join(__dirname, '../rendering/grid.html'),
-        pathname: path.join(__dirname, '../rendering/dialog.html'),
+        //pathname: path.join(__dirname, '../rendering/dialog.html'),
         //pathname: path.join(__dirname, '../rendering/conflictview.html'),
 
-        //pathname: path.join(__dirname, '../rendering/commander.html'),
+        pathname: path.join(__dirname, '../rendering/commander.html'),
 
         protocol: 'file:',
         hash: theme,
@@ -82,6 +82,11 @@ app.on('ready', () => {
             },
             {
                 type: 'separator'
+            },            
+            {
+                label: 'Ordner &anlegen',
+                accelerator: "F7",
+                click: evt =>  mainWindow.webContents.send("createFolder")
             },            
             {
                 label: '&Eigenschaften',

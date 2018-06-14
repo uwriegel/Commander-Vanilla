@@ -44,6 +44,7 @@ class Commander {
             this.commanderViewLeft.refresh()
             this.commanderViewRight.refresh()
         })
+        ipcRenderer.on("createFolder", () => this.focusedView.createFolder())
 
         this.initializeOnKeyDownHandler()
     }

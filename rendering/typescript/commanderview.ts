@@ -168,6 +168,12 @@ class CommanderView {
         this.tableView.resizeChecking()
     }
 
+    createFolder() {
+        const [items, index] = this.tableView.getItemsToSort()
+        const selected = items[index].name
+        alert(selected)
+    }
+
     private keysRestrict(e: KeyboardEvent) {
         let restrict = String.fromCharCode(e.charCode).toLowerCase()
         restrict = this.restrictor.value + restrict
