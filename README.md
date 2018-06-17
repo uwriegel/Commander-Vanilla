@@ -3,7 +3,7 @@ A Norton like Commander based on Electron and typescript
 
 ## To begin
 * npm i
-* .\node_modules\.bin\electron-rebuild.cmd
+* .\node_modules\\.bin\electron-rebuild.cmd
 * compile typescript (main and rendering)
 * 'npm start' or 'F5' to debug main process
 
@@ -13,7 +13,7 @@ A Norton like Commander based on Electron and typescript
 * npm install --global --production windows-build-tools  
 in power shell mit Admin-Rechten
 * npm install (to build node addon) 
-* .\node_modules\.bin\electron-rebuild.cmd (to rebuild electron addon)
+* .\node_modules\\.bin\electron-rebuild.cmd (to rebuild electron addon)
 
 ### Manual build of addon
 * cd addon

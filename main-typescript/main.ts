@@ -31,7 +31,7 @@ app.on('ready', () => {
     // und Laden der index.html der App.
     mainWindow.loadURL(url.format({
         // Test sites:
-        //pathname: path.join(__dirname, '../rendering/scrollbar.html'),
+        pathname: path.join(__dirname, '../rendering/scrollbar.html'),
         //pathname: path.join(__dirname, '../rendering/columns.html'),
         //pathname: path.join(__dirname, '../rendering/iconview.html'),
         //pathname: path.join(__dirname, '../rendering/tableview.html'),
@@ -39,7 +39,7 @@ app.on('ready', () => {
         //pathname: path.join(__dirname, '../rendering/dialog.html'),
         //pathname: path.join(__dirname, '../rendering/conflictview.html'),
 
-        pathname: path.join(__dirname, '../rendering/commander.html'),
+        // pathname: path.join(__dirname, '../rendering/commander.html'),
 
         protocol: 'file:',
         hash: theme,
