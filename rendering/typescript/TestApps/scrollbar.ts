@@ -2,7 +2,7 @@ let startPosition = 0
 
 const list = document.getElementById("list") as HTMLUListElement
 
-const itemHeight = initializeItemHeight();
+const itemHeight = initializeItemHeight()
 console.log(itemHeight)
 
 const capacity = calculateCapacity()
@@ -12,10 +12,10 @@ const itemsCount = 30
 const lis = [...Array(Math.min(capacity + 1, itemsCount)).keys()].map(n => {
     const li = document.createElement("li")
     li.innerText = `Eintrag #${n}`
-    return li;
+    return li
 })
 
-lis.forEach(n => list.appendChild(n));
+lis.forEach(n => list.appendChild(n))
 
 const completeControl = document.getElementById('completeControl')!
 const scrollbar = new Scrollbar(completeControl, () => { })
