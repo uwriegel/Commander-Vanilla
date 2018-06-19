@@ -8,18 +8,18 @@ interface IColumn {
  */
 class Columns {
     constructor(private readonly tableView: HTMLElement) {
-        const td = document.createElement("td")
-        td.classList.add("it-name")
-        const nameDiv = document.createElement("div")
-        nameDiv.classList.add("it-iconName")
-        const img = document.createElement("img")
-        img.classList.add("it-image")
-        img.alt = ""
-        const span = document.createElement("span")
-        span.classList.add("it-nameValue")
-        nameDiv.appendChild(img)
-        nameDiv.appendChild(span)
-        td.appendChild(nameDiv)
+        // const td = document.createElement("td")
+        // td.classList.add("it-name")
+        // const nameDiv = document.createElement("div")
+        // nameDiv.classList.add("it-iconName")
+        // const img = document.createElement("img")
+        // img.classList.add("it-image")
+        // img.alt = ""
+        // const span = document.createElement("span")
+        // span.classList.add("it-nameValue")
+        // nameDiv.appendChild(img)
+        // nameDiv.appendChild(span)
+        // td.appendChild(nameDiv)
 
         tableView.addEventListener('mousemove', evt => {
             const th = <HTMLElement>evt.target
