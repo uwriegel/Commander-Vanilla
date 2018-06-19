@@ -1,3 +1,4 @@
+const addon2: Addon = require('addon')
 
 async function fill() {
     const tableViewParent = document.getElementById("container")!
@@ -11,7 +12,7 @@ async function fill() {
 
     async function getItems(path: string)  {
         return new Promise<Item[]>((res, rej) => {
-            addon.readDirectory(path, (err, result) => {
+            addon2.readDirectory(path, (err, result) => {
                 res(result.map(item => {
                     return {
                         name: item.name,
